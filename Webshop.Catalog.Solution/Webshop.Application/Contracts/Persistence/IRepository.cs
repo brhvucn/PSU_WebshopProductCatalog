@@ -10,8 +10,9 @@ namespace Webshop.Application.Contracts.Persistence
     public interface IRepository<T> where T : AggregateRoot
     {
         Task CreateAsync(T entity);
-        Task DeleteAsync(T entity);
-        T GetById(int id);
-        IEnumerable<T> GetAll();
+        Task DeleteAsync(int id);
+        Task<T> GetById(int id);
+        Task<IEnumerable<T>> GetAll();
+        Task UpdateAsync(T entity);
     }
 }

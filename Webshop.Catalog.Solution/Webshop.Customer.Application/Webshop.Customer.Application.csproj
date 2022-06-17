@@ -5,15 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\CreateCustomer\" />
-    <Folder Include="Features\DeleteCustomer\" />
-    <Folder Include="Features\GetCustomer\" />
-    <Folder Include="Features\UpdateCustomer\" />
-    <Folder Include="Profiles\" />
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Webshop.Application\Webshop.Application.csproj" />
+    <ProjectReference Include="..\Webshop.Domain\Webshop.Domain.csproj" />
   </ItemGroup>
 
 </Project>

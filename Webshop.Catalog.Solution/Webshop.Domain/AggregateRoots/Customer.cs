@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnsureThat;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ namespace Webshop.Domain.AggregateRoots
     {
         public Customer(string name)
         {
+            Ensure.That(name, nameof(name)).IsNotNullOrEmpty();
             Name = name;
         }
 
