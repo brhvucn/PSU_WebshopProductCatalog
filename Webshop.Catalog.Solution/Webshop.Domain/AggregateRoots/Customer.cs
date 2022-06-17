@@ -16,6 +16,8 @@ namespace Webshop.Domain.AggregateRoots
             Name = name;
         }
 
+        public Customer() { } //for ORM
+
         public string Name { get; private set; }
         public string Address { get; set; }
         public string Address2 { get; set; }
