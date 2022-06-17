@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 using Webshop.Customer.Application.Features.CreateCustomer;
 using Webshop.Customer.Application.Features.DeleteCustomer;
 using Webshop.Customer.Application.Features.Dto;
 using Webshop.Customer.Application.Features.GetCustomer;
+using Webshop.Customer.Application.Features.GetCustomers;
 using Webshop.Customer.Application.Features.Requests;
 using Webshop.Customer.Application.Features.UpdateCustomer;
 using Webshop.Domain.Common;
@@ -28,7 +30,9 @@ namespace Webshop.Customer.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {
-            return BadRequest(new { description = "This endpoint has not been implemented" });
+            GetCustomersQuery query = new GetCustomersQuery();
+            Result<List<CustomerDto>> result = await this.dispatcher.Dispatch(query);
+            return FromResult<List<CustomerDto>>(result);
         }
 
         [HttpGet]
