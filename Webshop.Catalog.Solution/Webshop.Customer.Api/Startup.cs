@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,10 +8,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Webshop.Application;
+using Webshop.Application.Contracts;
+using Webshop.Customer.Application;
+using Webshop.Customer.Application.Contracts.Persistence;
+using Webshop.Customer.Persistence;
 
 namespace Webshop.Customer.Api
 {
@@ -19,6 +27,13 @@ namespace Webshop.Customer.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            string sequrl = Configuration.GetValue<string>("Settings:SeqLogAddress");
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .Enrich.FromLogContext()
+                .Enrich.WithProperty("Service", "Customer.API") //enrich with the tag "service" and the name of this service
+                .WriteTo.Seq(sequrl)
+                .CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -32,10 +47,17 @@ namespace Webshop.Customer.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Webshop.Customer.Api", Version = "v1" });
             });
             //add own services
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<DataContext, DataContext>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddMediatR(Assembly.GetExecutingAssembly());
+
+            services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMediator>()));
+            services.AddCustomerApplicationServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -54,6 +76,8 @@ namespace Webshop.Customer.Api
             {
                 endpoints.MapControllers();
             });
+            //add serilog
+            loggerFactory.AddSerilog();
         }
     }
 }

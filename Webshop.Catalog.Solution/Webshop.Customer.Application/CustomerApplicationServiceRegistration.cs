@@ -13,7 +13,7 @@ namespace Webshop.Customer.Application
 {
     public static class CustomerApplicationServiceRegistration
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddCustomerApplicationServices(this IServiceCollection services)
         {
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
