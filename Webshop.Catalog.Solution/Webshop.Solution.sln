@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seed", "Seed", "{9D03B617-1
 		Customers.sql = Customers.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Customer.Persistence", "Webshop.Customer.Persistence\Webshop.Customer.Persistence.csproj", "{29BE63A8-5FEB-4C07-A0DD-89161A1513DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{62F3CE9E-F64E-4E49-AE43-7F39939B1326}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62F3CE9E-F64E-4E49-AE43-7F39939B1326}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62F3CE9E-F64E-4E49-AE43-7F39939B1326}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29BE63A8-5FEB-4C07-A0DD-89161A1513DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29BE63A8-5FEB-4C07-A0DD-89161A1513DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29BE63A8-5FEB-4C07-A0DD-89161A1513DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29BE63A8-5FEB-4C07-A0DD-89161A1513DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{01A48F13-3A26-4E55-88C6-9586F8770719} = {774CCD7D-ED3B-4D75-8A7F-CEFC745765DB}
 		{1E6BED77-EB85-4EC8-BE0F-7E8A57F3D4AF} = {076B77A3-2483-43F0-9675-10B06DD3A6E6}
 		{62F3CE9E-F64E-4E49-AE43-7F39939B1326} = {98BEA6C6-7D0C-4A74-86D3-804C1C4A952A}
+		{29BE63A8-5FEB-4C07-A0DD-89161A1513DF} = {1E6BED77-EB85-4EC8-BE0F-7E8A57F3D4AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {822AAF83-FC8D-42BE-9726-63314F24EB10}
