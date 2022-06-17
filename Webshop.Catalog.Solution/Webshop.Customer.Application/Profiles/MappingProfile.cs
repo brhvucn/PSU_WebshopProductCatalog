@@ -10,6 +10,7 @@ namespace Webshop.Customer.Application.Profiles
         {
             CreateMap<Domain.AggregateRoots.Customer, CustomerDto>().ReverseMap();     
             CreateMap<Domain.AggregateRoots.Customer, CreateCustomerRequest>().ReverseMap();
+            CreateMap<Domain.AggregateRoots.Customer, UpdateCustomerRequest>().ReverseMap();
         }
     }
 }

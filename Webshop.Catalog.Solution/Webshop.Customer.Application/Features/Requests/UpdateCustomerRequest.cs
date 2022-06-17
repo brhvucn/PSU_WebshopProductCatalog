@@ -28,7 +28,7 @@ namespace Webshop.Customer.Application.Features.Requests
                 //cannot be empty
                 RuleFor(r => r.Id)
                     .NotNull().WithMessage(Errors.General.ValueIsRequired(nameof(Id)).Code)
-                    .LessThanOrEqualTo(0).WithMessage(Errors.General.ValueTooSmall(nameof(Id), 1).Code);
+                    .GreaterThanOrEqualTo(0).WithMessage(Errors.General.ValueTooSmall(nameof(Id), 1).Code);
                 RuleFor(r => r.Name).NotEmpty().WithMessage(Errors.General.ValueIsRequired(nameof(Name)).Code);
                 RuleFor(r => r.Address).NotEmpty().WithMessage(Errors.General.ValueIsRequired(nameof(Name)).Code);
                 RuleFor(r => r.City).NotEmpty().WithMessage(Errors.General.ValueIsRequired(nameof(Name)).Code);

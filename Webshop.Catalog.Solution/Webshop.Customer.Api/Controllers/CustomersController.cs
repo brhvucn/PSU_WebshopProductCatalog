@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 using Webshop.Customer.Application.Features.CreateCustomer;
 using Webshop.Customer.Application.Features.DeleteCustomer;
+using Webshop.Customer.Application.Features.Dto;
 using Webshop.Customer.Application.Features.GetCustomer;
 using Webshop.Customer.Application.Features.Requests;
 using Webshop.Customer.Application.Features.UpdateCustomer;
@@ -35,8 +36,8 @@ namespace Webshop.Customer.Api.Controllers
         public async Task<IActionResult> GetCustomer(int id)
         {
             GetCustomerQuery query = new GetCustomerQuery(id);
-            Result result = await this.dispatcher.Dispatch(query);
-            return Ok(result);
+            Result<CustomerDto> result = await this.dispatcher.Dispatch(query);
+            return FromResult<CustomerDto>(result);
         }
 
         [HttpPost]

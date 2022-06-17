@@ -26,6 +26,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Seed", "Seed", "{9D03B617-1222-4FAA-8C4F-C2F7430FC496}"
 	ProjectSection(SolutionItems) = preProject
 		Customers.sql = Customers.sql
+		Seed Demo Customers.sql = Seed Demo Customers.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Customer.Persistence", "Webshop.Customer.Persistence\Webshop.Customer.Persistence.csproj", "{29BE63A8-5FEB-4C07-A0DD-89161A1513DF}"

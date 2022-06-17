@@ -35,7 +35,7 @@ namespace Webshop.Customer.Api.Controllers
 
         protected ActionResult Error(List<ValidationFailure> validationErrors)
         {
-            List<string> errors = validationErrors.Select(x => x.ErrorMessage).ToList();
+            List<string> errors = validationErrors.Select(x => x.ErrorMessage + "("+x.PropertyName+")").ToList();
             return Error(errors);
         }
 
