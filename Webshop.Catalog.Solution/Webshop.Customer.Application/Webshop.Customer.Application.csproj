@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\CreateCustomer\" />
+    <Folder Include="Features\DeleteCustomer\" />
+    <Folder Include="Features\GetCustomer\" />
+    <Folder Include="Features\UpdateCustomer\" />
+    <Folder Include="Profiles\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Webshop.Application\Webshop.Application.csproj" />
+  </ItemGroup>
+
+</Project>
