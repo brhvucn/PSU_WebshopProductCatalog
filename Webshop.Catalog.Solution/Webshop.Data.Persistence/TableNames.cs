@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Webshop.Data.Persistence
+{
+    public static class TableNames
+    {
+        public static class Catalog
+        {
+            public static string CATEGORYTABLE = "Category";
+        }
+
+        public static class Customer
+        {
+            public static string CUSTOMERTABLE = "Customer";
+        }                
+    }
+}

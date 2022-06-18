@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Webshop.Customer.Persistence
+namespace Webshop.Data.Persistence
 {
     public class BaseRepository
     {

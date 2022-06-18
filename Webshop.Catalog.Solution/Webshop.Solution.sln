@@ -25,6 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Customer.Api", "Web
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database Seed", "Database Seed", "{9D03B617-1222-4FAA-8C4F-C2F7430FC496}"
 	ProjectSection(SolutionItems) = preProject
+		Category.sql = Category.sql
 		Customers.sql = Customers.sql
 		Seed Demo Customers.sql = Seed Demo Customers.sql
 	EndProjectSection
@@ -34,6 +35,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Customer.Application.Test", "Webshop.Customer.Application.Test\Webshop.Customer.Application.Test.csproj", "{8C9C1E24-70ED-470B-9CA3-026EC06AC89A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Catalog.Domain", "Webshop.Catalog.Domain\Webshop.Catalog.Domain.csproj", "{92C95CBF-34E1-446C-8A6A-C35CB02C1036}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Catalog.Api", "Webshop.Catalog.Api\Webshop.Catalog.Api.csproj", "{22054235-5C0C-402B-A353-082290E07760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Catalog.Persistence", "Webshop.Catalog.Persistence\Webshop.Catalog.Persistence.csproj", "{CB696684-000D-40B3-9B3A-CE33027A6F86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Data.Persistence", "Webshop.Data.Persistence\Webshop.Data.Persistence.csproj", "{3A7E7069-45EC-4D5E-AA5F-2B914EF73113}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +80,18 @@ Global
 		{92C95CBF-34E1-446C-8A6A-C35CB02C1036}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92C95CBF-34E1-446C-8A6A-C35CB02C1036}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92C95CBF-34E1-446C-8A6A-C35CB02C1036}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22054235-5C0C-402B-A353-082290E07760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22054235-5C0C-402B-A353-082290E07760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22054235-5C0C-402B-A353-082290E07760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22054235-5C0C-402B-A353-082290E07760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB696684-000D-40B3-9B3A-CE33027A6F86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB696684-000D-40B3-9B3A-CE33027A6F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB696684-000D-40B3-9B3A-CE33027A6F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB696684-000D-40B3-9B3A-CE33027A6F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A7E7069-45EC-4D5E-AA5F-2B914EF73113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A7E7069-45EC-4D5E-AA5F-2B914EF73113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A7E7069-45EC-4D5E-AA5F-2B914EF73113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A7E7069-45EC-4D5E-AA5F-2B914EF73113}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -89,6 +108,9 @@ Global
 		{29BE63A8-5FEB-4C07-A0DD-89161A1513DF} = {1E6BED77-EB85-4EC8-BE0F-7E8A57F3D4AF}
 		{8C9C1E24-70ED-470B-9CA3-026EC06AC89A} = {BF604B02-EA9B-4EE8-A7F0-EDD07B387082}
 		{92C95CBF-34E1-446C-8A6A-C35CB02C1036} = {774CCD7D-ED3B-4D75-8A7F-CEFC745765DB}
+		{22054235-5C0C-402B-A353-082290E07760} = {98BEA6C6-7D0C-4A74-86D3-804C1C4A952A}
+		{CB696684-000D-40B3-9B3A-CE33027A6F86} = {1E6BED77-EB85-4EC8-BE0F-7E8A57F3D4AF}
+		{3A7E7069-45EC-4D5E-AA5F-2B914EF73113} = {1E6BED77-EB85-4EC8-BE0F-7E8A57F3D4AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {822AAF83-FC8D-42BE-9726-63314F24EB10}

@@ -13,10 +13,11 @@ namespace Webshop.Catalog.Application
 {
     public static class CatalogApplicationServiceRegistration
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddCatalogApplicationServices(this IServiceCollection services)
         {
-            services.AddApplicationServices(); //register the general services from webshop.applicaiton
+            services.AddApplicationServices(); //register the general services from webshop.application
             services.AddMediatR(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMediator>()));
             return services;
         }

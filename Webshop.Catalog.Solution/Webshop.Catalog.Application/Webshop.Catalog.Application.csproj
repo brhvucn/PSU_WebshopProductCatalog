@@ -5,18 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
-    <Folder Include="Profiles\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.0.3" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Contracts" Version="1.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Webshop.Application\Webshop.Application.csproj" />
+    <ProjectReference Include="..\Webshop.Catalog.Domain\Webshop.Catalog.Domain.csproj" />
   </ItemGroup>
 
 </Project>

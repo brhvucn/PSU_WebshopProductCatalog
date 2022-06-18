@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 using Webshop.Customer.Application.Features.CreateCustomer;
@@ -21,9 +23,11 @@ namespace Webshop.Customer.Api.Controllers
     {
         private IDispatcher dispatcher;
         private IMapper mapper;
-        public CustomersController(IDispatcher dispatcher, IMapper mapper)
+        private ILogger<CustomersController> logger;
+        public CustomersController(IDispatcher dispatcher, IMapper mapper, ILogger<CustomersController> logger)
         {
             this.mapper = mapper;
+            this.logger = logger;
             this.dispatcher = dispatcher;
         }
 
@@ -32,7 +36,15 @@ namespace Webshop.Customer.Api.Controllers
         {
             GetCustomersQuery query = new GetCustomersQuery();
             Result<List<CustomerDto>> result = await this.dispatcher.Dispatch(query);
-            return FromResult<List<CustomerDto>>(result);
+            if (result.Success)
+            {
+                return FromResult<List<CustomerDto>>(result);
+            }
+            else
+            {
+                this.logger.LogError(result.Error.Message);
+                return Error(result.Error);
+            }
         }
 
         [HttpGet]
@@ -41,7 +53,15 @@ namespace Webshop.Customer.Api.Controllers
         {
             GetCustomerQuery query = new GetCustomerQuery(id);
             Result<CustomerDto> result = await this.dispatcher.Dispatch(query);
-            return FromResult<CustomerDto>(result);
+            if(result.Success)
+            {
+                return FromResult<CustomerDto>(result);
+            }
+            else
+            {
+                this.logger.LogError(result.Error.Message);
+                return Error(result.Error);
+            }
         }
 
         [HttpPost]
@@ -58,6 +78,7 @@ namespace Webshop.Customer.Api.Controllers
             }
             else
             {
+                this.logger.LogError(string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
                 return Error(result.Errors);
             }            
         }
@@ -68,7 +89,15 @@ namespace Webshop.Customer.Api.Controllers
         {
             DeleteCustomerCommand command = new DeleteCustomerCommand(id);
             Result result = await this.dispatcher.Dispatch(command);
-            return Ok(result);
+            if (result.Success)
+            {
+                return FromResult(result);
+            }
+            else
+            {
+                this.logger.LogError(string.Join(",", result.Error.Message));
+                return Error(result.Error);
+            }
         }
 
         [HttpPut]
@@ -86,6 +115,7 @@ namespace Webshop.Customer.Api.Controllers
             }
             else
             {
+                this.logger.LogError(string.Join(",", result.Errors.Select(x => x.ErrorMessage)));
                 return Error(result.Errors);
             }
         }

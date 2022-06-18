@@ -16,12 +16,12 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Webshop.Application;
 using Webshop.Application.Contracts;
-using Webshop.Customer.Application;
-using Webshop.Customer.Application.Contracts.Persistence;
-using Webshop.Customer.Persistence;
+using Webshop.Catalog.Application;
+using Webshop.Catalog.Application.Contracts.Persistence;
+using Webshop.Catalog.Persistence;
 using Webshop.Data.Persistence;
 
-namespace Webshop.Customer.Api
+namespace Webshop.Catalog.Api
 {
     public class Startup
     {
@@ -32,7 +32,7 @@ namespace Webshop.Customer.Api
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .Enrich.FromLogContext()
-                .Enrich.WithProperty("Service", "Customer.API") //enrich with the tag "service" and the name of this service
+                .Enrich.WithProperty("Service", "Catalog.API") //enrich with the tag "service" and the name of this service
                 .WriteTo.Seq(sequrl)
                 .CreateLogger();
         }
@@ -42,29 +42,30 @@ namespace Webshop.Customer.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Webshop.Customer.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Webshop.Catalog.Api", Version = "v1" });
             });
             //add own services
-            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<DataContext, DataContext>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMediator>()));
-            services.AddCustomerApplicationServices();
+            services.AddCatalogApplicationServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
-        {            
+        {           
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Webshop.Customer.Api v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Webshop.Catalog.Api v1"));
             }
 
             app.UseHttpsRedirection();

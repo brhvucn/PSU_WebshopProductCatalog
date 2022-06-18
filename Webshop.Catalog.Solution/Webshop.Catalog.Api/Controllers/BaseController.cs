@@ -7,7 +7,7 @@ using Webshop.Customer.Api.Utilities;
 using Webshop.Domain.Common;
 using Webshop.Domain.ValueObjects;
 
-namespace Webshop.Customer.Api.Controllers
+namespace Webshop.Catalog.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -34,15 +34,15 @@ namespace Webshop.Customer.Api.Controllers
             return BadRequest(Envelope.Error(errorMessage));
         }
 
-        protected ActionResult Error(Error error)
-        {
-            return BadRequest(Envelope.Error(error.Message + " ("+error.Code+")"));
-        }
-
         protected ActionResult Error(List<ValidationFailure> validationErrors)
         {
-            List<string> errors = validationErrors.Select(x => x.ErrorMessage + " ("+x.PropertyName+")").ToList();
+            List<string> errors = validationErrors.Select(x => x.ErrorMessage + "("+x.PropertyName+")").ToList();
             return Error(errors);
+        }
+
+        protected ActionResult Error(Error error)
+        {
+            return BadRequest(Envelope.Error(error.Message + " (" + error.Code + ")"));
         }
 
         protected IActionResult FromResult(Result result)

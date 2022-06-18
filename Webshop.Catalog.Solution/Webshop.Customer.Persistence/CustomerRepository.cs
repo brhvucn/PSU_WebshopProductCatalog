@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using Webshop.Customer.Application.Contracts.Persistence;
+using Webshop.Data.Persistence;
 
 namespace Webshop.Customer.Persistence
 {
     public class CustomerRepository : BaseRepository, ICustomerRepository
     {
-        public CustomerRepository(DataContext context) : base(TableNames.CUSTOMERTABLE, context) { }
+        public CustomerRepository(DataContext context) : base(TableNames.Customer.CUSTOMERTABLE, context) { }
         public async Task CreateAsync(Domain.AggregateRoots.Customer entity)
         {
             using(var connection = dataContext.CreateConnection())
