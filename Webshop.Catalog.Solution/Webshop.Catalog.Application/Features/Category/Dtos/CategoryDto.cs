@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Webshop.Catalog.Application.Features.Catalog.Dtos
+namespace Webshop.Category.Application.Features.Category.Dtos
 {
     public class CategoryDto
     {
@@ -16,6 +16,6 @@ namespace Webshop.Catalog.Application.Features.Catalog.Dtos
         public string Name { get; set; }
         public string Description { get; set; }
         public int ParentId { get; set; }
-        public List<CategoryDto> Categories { get; set; }
+        public IEnumerable<CategoryDto> Categories { get; set; } = Enumerable.Empty<CategoryDto>();
     }
 }

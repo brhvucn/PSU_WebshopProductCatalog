@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 
-namespace Webshop.Catalog.Application.Features.Catalog.Commands.DeleteCategory
+namespace Webshop.Category.Application.Features.Category.Commands.DeleteCategory
 {
     public class DeleteCategoryCommand : ICommand
     {

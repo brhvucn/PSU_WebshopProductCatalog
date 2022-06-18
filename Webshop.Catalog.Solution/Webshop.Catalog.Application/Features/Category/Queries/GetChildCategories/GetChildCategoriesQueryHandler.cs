@@ -8,10 +8,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 using Webshop.Catalog.Application.Contracts.Persistence;
-using Webshop.Catalog.Application.Features.Catalog.Dtos;
+using Webshop.Category.Application.Features.Category.Dtos;
 using Webshop.Domain.Common;
 
-namespace Webshop.Catalog.Application.Features.Catalog.Queries.GetChildCategories
+namespace Webshop.Category.Application.Features.Category.Queries.GetChildCategories
 {
     public class GetChildCategoriesQueryHandler : IQueryHandler<GetChildCategoriesQuery, List<CategoryDto>>
     {

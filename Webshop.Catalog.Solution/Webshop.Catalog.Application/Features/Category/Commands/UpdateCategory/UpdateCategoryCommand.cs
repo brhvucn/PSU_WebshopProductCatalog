@@ -5,19 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 
-namespace Webshop.Catalog.Application.Features.Catalog.Commands.CreateCategory
+namespace Webshop.Category.Application.Features.Category.Commands.UpdateCategory
 {
-    public class CreateCategoryCommand : ICommand
+    public class UpdateCategoryCommand : ICommand
     {
-        public CreateCategoryCommand(string name, string description, int parentId)
+        public UpdateCategoryCommand(string name, string description, int id)
         {
             Name = name;
             Description = description;
-            this.ParentId = parentId;
+            Id = id;
         }
 
         public string Name { get; private set; }
-        public int ParentId { get; set; }
         public string Description { get; private set; }
+        public int Id { get; private set; }
     }
 }

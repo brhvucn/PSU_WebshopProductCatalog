@@ -13,7 +13,7 @@ namespace Webshop.Catalog.Persistence
     public class CategoryRepository : BaseRepository, ICategoryRepository
     {
         public CategoryRepository(DataContext context) : base(TableNames.Catalog.CATEGORYTABLE, context) { }
-        public async Task CreateAsync(Category entity)
+        public async Task CreateAsync(Catalog.Domain.AggregateRoots.Category entity)
         {
             using(var connection = dataContext.CreateConnection())
             {
@@ -45,43 +45,43 @@ namespace Webshop.Catalog.Persistence
             }
         }
 
-        public async Task<IEnumerable<Category>> GetAll()
+        public async Task<IEnumerable<Domain.AggregateRoots.Category>> GetAll()
         {
             using(var connection = dataContext.CreateConnection())
             {
                 string query = $"select * from {TableName}";
-                return await connection.QueryAsync<Category>(query);
+                return await connection.QueryAsync<Domain.AggregateRoots.Category>(query);
             }
         }
 
-        public async Task<Category> GetById(int id)
+        public async Task<Domain.AggregateRoots.Category> GetById(int id)
         {
             using (var connection = dataContext.CreateConnection())
             {
                 string query = $"select * from {TableName} where id = @id";
-                return await connection.QuerySingleAsync<Category>(query, new {id = id});
+                return await connection.QuerySingleAsync<Domain.AggregateRoots.Category>(query, new {id = id});
             }
         }
 
-        public async Task<IEnumerable<Category>> GetChildCategories(int parentCategory)
+        public async Task<IEnumerable<Domain.AggregateRoots.Category>> GetChildCategories(int parentCategory)
         {
             using (var connection = dataContext.CreateConnection())
             {
                 string query = $"select * from {TableName} where parentid = @parentCategory";
-                return await connection.QueryAsync<Category>(query, new {parentCategory = parentCategory});
+                return await connection.QueryAsync<Domain.AggregateRoots.Category>(query, new {parentCategory = parentCategory});
             }
         }
 
-        public async Task<IEnumerable<Category>> GetRootCategories()
+        public async Task<IEnumerable<Domain.AggregateRoots.Category>> GetRootCategories()
         {
             using (var connection = dataContext.CreateConnection())
             {
                 string query = $"select * from {TableName} where parentid = 0";
-                return await connection.QueryAsync<Category>(query);
+                return await connection.QueryAsync<Domain.AggregateRoots.Category>(query);
             }
         }
 
-        public async Task UpdateAsync(Category entity)
+        public async Task UpdateAsync(Domain.AggregateRoots.Category entity)
         {
             using (var connection = dataContext.CreateConnection())
             {

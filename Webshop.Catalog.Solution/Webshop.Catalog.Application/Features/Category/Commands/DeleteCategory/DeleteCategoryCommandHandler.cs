@@ -9,7 +9,7 @@ using Webshop.Application.Contracts;
 using Webshop.Catalog.Application.Contracts.Persistence;
 using Webshop.Domain.Common;
 
-namespace Webshop.Catalog.Application.Features.Catalog.Commands.DeleteCategory
+namespace Webshop.Category.Application.Features.Category.Commands.DeleteCategory
 {
     public class DeleteCategoryCommandHandler : ICommandHandler<DeleteCategoryCommand>
     {

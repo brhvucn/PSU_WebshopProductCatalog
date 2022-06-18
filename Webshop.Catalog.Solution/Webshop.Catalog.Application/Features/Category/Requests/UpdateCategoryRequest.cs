@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Webshop.Domain.Common;
 
-namespace Webshop.Catalog.Application.Features.Catalog.Requests
+namespace Webshop.Category.Application.Features.Category.Requests
 {
     public class UpdateCategoryRequest
     {

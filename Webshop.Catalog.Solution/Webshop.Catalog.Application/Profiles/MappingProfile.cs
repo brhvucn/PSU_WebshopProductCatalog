@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Webshop.Catalog.Application.Features.Catalog.Dtos;
-using Webshop.Catalog.Application.Features.Catalog.Requests;
+using Webshop.Category.Application.Features.Category.Dtos;
+using Webshop.Category.Application.Features.Category.Requests;
 
 namespace Webshop.Catalog.Application.Profiles
 {
@@ -13,7 +13,7 @@ namespace Webshop.Catalog.Application.Profiles
     {
         public MappingProfile()
         {
-            CreateMap<Domain.AggregateRoots.Category, CategoryDto>().ReverseMap();
+            CreateMap<Domain.AggregateRoots.Category, CategoryDto>().ReverseMap();            
             CreateMap<Domain.AggregateRoots.Category, CreateCategoryRequest>().ReverseMap();
             CreateMap<Domain.AggregateRoots.Category, UpdateCategoryRequest>().ReverseMap();
         }

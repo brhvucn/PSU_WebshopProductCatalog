@@ -8,11 +8,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 using Webshop.Catalog.Application.Contracts.Persistence;
-using Webshop.Catalog.Application.Features.Catalog.Dtos;
-using Webshop.Catalog.Domain.AggregateRoots;
+using Webshop.Category.Application.Features.Category.Dtos;
 using Webshop.Domain.Common;
 
-namespace Webshop.Catalog.Application.Features.Catalog.Queries.GetCategories
+namespace Webshop.Category.Application.Features.Category.Queries.GetCategories
 {
     public class GetCategoriesQueryHandler : IQueryHandler<GetCategoriesQuery, List<CategoryDto>>
     {
@@ -65,7 +64,7 @@ namespace Webshop.Catalog.Application.Features.Catalog.Queries.GetCategories
             }
         }
 
-        private async Task<IEnumerable<Category>> GetFullyLoadedCategories(Category parentCategory)
+        private async Task<IEnumerable<Catalog.Domain.AggregateRoots.Category>> GetFullyLoadedCategories(Catalog.Domain.AggregateRoots.Category parentCategory)
         {
             var categories = await this.categoryRepository.GetChildCategories(parentCategory.Id);
             foreach(var category in categories)
@@ -75,7 +74,7 @@ namespace Webshop.Catalog.Application.Features.Catalog.Queries.GetCategories
             return categories;
         }
 
-        private List<CategoryDto> TransformToDto(Category category)
+        private List<CategoryDto> TransformToDto(Catalog.Domain.AggregateRoots.Category category)
         {
             List<CategoryDto> result = new List<CategoryDto>();
             foreach(var cat in category.ChildCategories)

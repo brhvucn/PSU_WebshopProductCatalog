@@ -10,7 +10,7 @@ using Webshop.Catalog.Application.Contracts.Persistence;
 using Webshop.Catalog.Domain.AggregateRoots;
 using Webshop.Domain.Common;
 
-namespace Webshop.Catalog.Application.Features.Catalog.Commands.CreateCategory
+namespace Webshop.Category.Application.Features.Category.Commands.CreateCategory
 {
     public class CreateCategoryCommandHandler : ICommandHandler<CreateCategoryCommand>
     {
@@ -34,7 +34,7 @@ namespace Webshop.Catalog.Application.Features.Catalog.Commands.CreateCategory
                         throw new ArgumentOutOfRangeException(nameof(command.ParentId), "A category with the provided parentId does not exist");
                     }
                 }
-                Category category = new Category(command.Name);
+                Catalog.Domain.AggregateRoots.Category category = new Catalog.Domain.AggregateRoots.Category(command.Name);
                 category.Description = command.Description;
                 category.ParentId = command.ParentId;
                 await this.categoryRepository.CreateAsync(category);

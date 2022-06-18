@@ -10,7 +10,7 @@ using Webshop.Catalog.Application.Contracts.Persistence;
 using Webshop.Catalog.Domain.AggregateRoots;
 using Webshop.Domain.Common;
 
-namespace Webshop.Catalog.Application.Features.Catalog.Commands.UpdateCategory
+namespace Webshop.Category.Application.Features.Category.Commands.UpdateCategory
 {
     public class UpdateCategoryCommandHandler : ICommandHandler<UpdateCategoryCommand>
     {
@@ -26,7 +26,7 @@ namespace Webshop.Catalog.Application.Features.Catalog.Commands.UpdateCategory
         {
             try
             {
-                Category category = new Category(command.Name);
+                Catalog.Domain.AggregateRoots.Category category = new Catalog.Domain.AggregateRoots.Category(command.Name);
                 category.Description = command.Description;
                 category.Id = command.Id;
                 await this.categoryRepository.UpdateAsync(category);
