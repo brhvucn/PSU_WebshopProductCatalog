@@ -19,9 +19,4 @@
     <ProjectReference Include="..\Webshop.Catalog.Domain\Webshop.Catalog.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Product\Commands\" />
-    <Folder Include="Features\Product\Queries\" />
-  </ItemGroup>
-
 </Project>

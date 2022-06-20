@@ -10,7 +10,8 @@ namespace Webshop.Catalog.Application.Features.Product.Requests
 {
     public class UpdateProductRequest
     {
-        public string Name { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
         public string SKU { get; set; }
         public int AmountInStock { get; set; }
@@ -22,6 +23,10 @@ namespace Webshop.Catalog.Application.Features.Product.Requests
         {
             public Validator()
             {
+                //Id
+                RuleFor(r=>r.Id)
+                    .NotEmpty().WithMessage(Errors.General.ValueIsEmpty(nameof(Id)).Message)
+                    .GreaterThanOrEqualTo(0).WithMessage(Errors.General.ValueTooSmall(nameof(Id), 0).Message);
                 //name
                 RuleFor(r => r.Name)
                     .NotEmpty().WithMessage(Errors.General.ValueIsEmpty(nameof(Name)).Message);
