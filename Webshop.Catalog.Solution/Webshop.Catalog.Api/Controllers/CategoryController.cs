@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
+using Webshop.Catalog.Application.Features.Product.Dtos;
+using Webshop.Catalog.Application.Features.Product.Queries.GetProducts;
 using Webshop.Category.Application.Features.Category.Commands.CreateCategory;
 using Webshop.Category.Application.Features.Category.Commands.DeleteCategory;
 using Webshop.Category.Application.Features.Category.Commands.UpdateCategory;
@@ -128,13 +130,22 @@ namespace Webshop.Catalog.Api.Controllers
             var result = await this.dispatcher.Dispatch(query);
             if (result.Success)
             {
-                return FromResult<List<CategoryDto>>(result);
+                return FromResult<IEnumerable<CategoryDto>>(result);
             }
             else
             {
                 this.logger.LogError(string.Join(",", result.Error.Message));
                 return Error(result.Error);
             }
+        }
+
+        [HttpGet]
+        [Route("{id}/products")]
+        public async Task<IActionResult> GetCategoryProducts(int id)
+        {
+            GetProductsQuery getProductsQuery = new GetProductsQuery(id);
+            var queryResult = await this.dispatcher.Dispatch(getProductsQuery);
+            return FromResult<IEnumerable<ProductDto>>(queryResult);
         }
     }
 }

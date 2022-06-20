@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts.Persistence;
+using Webshop.Domain.Common;
 
 namespace Webshop.Catalog.Application.Contracts.Persistence
 {
@@ -12,5 +13,6 @@ namespace Webshop.Catalog.Application.Contracts.Persistence
         Task<IEnumerable<Domain.AggregateRoots.Category>> GetRootCategories();
         Task<IEnumerable<Domain.AggregateRoots.Category>> GetChildCategories(int parentCategory);
         Task<bool> ExistsCategory(int parentId);
+        Task<IEnumerable<Domain.AggregateRoots.Category>> GetForProduct(int productId);
     }
 }

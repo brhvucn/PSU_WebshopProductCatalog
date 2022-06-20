@@ -16,6 +16,8 @@ namespace Webshop.Catalog.Domain.AggregateRoots
             Price = price;
             Currency = currency;
         }
+
+        public Product() { } //for ORM
         public string Name { get; private set; }
         public string Description { get; set; }
         public string SKU { get; set; }

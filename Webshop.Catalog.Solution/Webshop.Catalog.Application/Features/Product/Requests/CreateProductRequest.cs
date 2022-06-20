@@ -10,7 +10,7 @@ namespace Webshop.Catalog.Application.Features.Product.Requests
 {
     public class CreateProductRequest
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
         public string SKU { get; set; }
         public int Price { get; set; }
 

@@ -11,28 +11,28 @@ using Webshop.Catalog.Application.Contracts.Persistence;
 using Webshop.Category.Application.Features.Category.Dtos;
 using Webshop.Domain.Common;
 
-namespace Webshop.Category.Application.Features.Category.Queries.GetChildCategories
+namespace Webshop.Catalog.Application.Features.Category.Queries.GetCategoriesForProduct
 {
-    public class GetChildCategoriesQueryHandler : IQueryHandler<GetChildCategoriesQuery, IEnumerable<CategoryDto>>
+    public class GetCategoriesForProductQueryHandler : IQueryHandler<GetCategoriesForProductQuery, IEnumerable<CategoryDto>>
     {
-        private ILogger<GetChildCategoriesQueryHandler> logger;
+        private ILogger<GetCategoriesForProductQueryHandler> logger;
         private IMapper mapper;
         private ICategoryRepository categoryRepository;
-        public GetChildCategoriesQueryHandler(ILogger<GetChildCategoriesQueryHandler> logger, IMapper mapper, ICategoryRepository categoryRepository)
+        public GetCategoriesForProductQueryHandler(ILogger<GetCategoriesForProductQueryHandler> logger, IMapper mapper, ICategoryRepository categoryRepository)
         {
             this.logger = logger;
             this.mapper = mapper;
             this.categoryRepository = categoryRepository;
         }
 
-        public async Task<Result<IEnumerable<CategoryDto>>> Handle(GetChildCategoriesQuery query, CancellationToken cancellationToken = default)
+        public async Task<Result<IEnumerable<CategoryDto>>> Handle(GetCategoriesForProductQuery query, CancellationToken cancellationToken = default)
         {
             try
             {
-                var childCategoriesResult = await this.categoryRepository.GetChildCategories(query.ParentCategoryId);
-                return Result.Ok(this.mapper.Map<IEnumerable<CategoryDto>>(childCategoriesResult));
+                var result = await this.categoryRepository.GetForProduct(query.ProductId);
+                return Result.Ok(this.mapper.Map<IEnumerable<CategoryDto>>(result));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.logger.LogCritical(ex, ex.Message);
                 return Result.Fail<IEnumerable<CategoryDto>>(Errors.General.UnspecifiedError(ex.Message));

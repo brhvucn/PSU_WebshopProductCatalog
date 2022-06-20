@@ -15,6 +15,12 @@ namespace Webshop.Catalog.Application.Features.Product.Commands.UpdateProduct
     {
         private ILogger<UpdateProductCommand> logger;
         private IProductRepository productReopsitory;
+        public UpdateProductCommandHandler(ILogger<UpdateProductCommand> logger, IProductRepository productReopsitory)
+        {
+            this.logger = logger;
+            this.productReopsitory = productReopsitory;
+        }
+
         public async Task<Result> Handle(UpdateProductCommand command, CancellationToken cancellationToken = default)
         {
             try

@@ -72,6 +72,15 @@ namespace Webshop.Catalog.Persistence
             }
         }
 
+        public async Task<IEnumerable<Domain.AggregateRoots.Category>> GetForProduct(int productId)
+        {
+            using (var connection = dataContext.CreateConnection())
+            {
+                string query = $"select * from {TableName} a join {TableNames.Catalog.PRODUCTCATEGORYTABLE} b on a.Id = b.CategoryId where b.ProductId = @productId";
+                return await connection.QueryAsync<Domain.AggregateRoots.Category>(query, new { productId = productId });
+            }
+        }
+
         public async Task<IEnumerable<Domain.AggregateRoots.Category>> GetRootCategories()
         {
             using (var connection = dataContext.CreateConnection())

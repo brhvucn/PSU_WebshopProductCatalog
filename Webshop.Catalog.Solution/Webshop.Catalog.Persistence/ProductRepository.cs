@@ -7,12 +7,24 @@ using System.Threading.Tasks;
 using Webshop.Catalog.Application.Contracts.Persistence;
 using Webshop.Catalog.Domain.AggregateRoots;
 using Webshop.Data.Persistence;
+using Webshop.Domain.Common;
 
 namespace Webshop.Catalog.Persistence
 {
     public class ProductRepository : BaseRepository, IProductRepository
     {
         public ProductRepository(DataContext context) : base(TableNames.Catalog.PRODUCTTABLE, context) { }
+
+        public async Task<Result> AddProductToCategory(int productId, int categoryId)
+        {
+            using(var connection = dataContext.CreateConnection())
+            {
+                string command = $"insert into {TableNames.Catalog.PRODUCTCATEGORYTABLE} (productId, categoryId) values (@pid, @cid)";
+                await connection.ExecuteAsync(command, new {pid = productId, cid = categoryId});
+                return Result.Ok();
+            }
+        }
+
         public async Task CreateAsync(Product entity)
         {
             using(var connection  = dataContext.CreateConnection())
@@ -65,6 +77,16 @@ namespace Webshop.Catalog.Persistence
             {
                 string query = $"select * from {TableName} where id = @id";
                 return await connection.QuerySingleAsync<Product>(query, new {id = id});
+            }
+        }
+
+        public async Task<Result> RemoveProductFromCategory(int productId, int categoryId)
+        {
+            using (var connection = dataContext.CreateConnection())
+            {
+                string command = $"delete from {TableNames.Catalog.PRODUCTCATEGORYTABLE} where productId = @pid and categoryId = @cid";
+                await connection.ExecuteAsync(command, new { pid = productId, cid = categoryId });
+                return Result.Ok();
             }
         }
 
