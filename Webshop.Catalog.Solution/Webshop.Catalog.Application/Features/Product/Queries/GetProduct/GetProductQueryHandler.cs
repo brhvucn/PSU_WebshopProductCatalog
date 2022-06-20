@@ -25,9 +25,18 @@ namespace Webshop.Catalog.Application.Features.Product.Queries.GetProduct
             this.productRepository = productRepository;
         }
 
-        public Task<Result<ProductDto>> Handle(GetProductQuery query, CancellationToken cancellationToken = default)
+        public async Task<Result<ProductDto>> Handle(GetProductQuery query, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var product = await this.productRepository.GetById(query.ProductId);
+                return this.mapper.Map<ProductDto>(product);
+            }
+            catch(Exception ex)
+            {
+                this.logger.LogCritical(ex, ex.Message);
+                return Result.Fail<ProductDto>(Errors.General.UnspecifiedError(ex.Message));
+            }
         }
     }
 }

@@ -21,9 +21,19 @@ namespace Webshop.Catalog.Application.Features.Product.Commands.CreateProduct
             this.repository = repository;
         }
 
-        public Task<Result> Handle(CreateProductCommand command, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(CreateProductCommand command, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Domain.AggregateRoots.Product newProduct = new Domain.AggregateRoots.Product(command.Name, command.SKU, command.Price, command.Currency);
+                await this.repository.CreateAsync(newProduct);
+                return Result.Ok();
+            }
+            catch(Exception ex)
+            {
+                this.logger.LogCritical(ex, ex.Message);
+                return Result.Fail(Errors.General.UnspecifiedError(ex.Message));
+            }
         }
     }
 }

@@ -25,9 +25,18 @@ namespace Webshop.Catalog.Application.Features.Product.Queries.GetProducts
             this.productRepository = productRepository;
         }
 
-        public Task<Result<IEnumerable<ProductDto>>> Handle(GetProductsQuery query, CancellationToken cancellationToken = default)
+        public async Task<Result<IEnumerable<ProductDto>>> Handle(GetProductsQuery query, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IEnumerable<Domain.AggregateRoots.Product> products = await this.productRepository.GetAllFromCategory(query.CategoryId);
+                return Result.Ok(this.mapper.Map<IEnumerable<ProductDto>>(products));
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogCritical(ex, ex.Message);
+                return Result.Fail<IEnumerable<ProductDto>>(Errors.General.UnspecifiedError(ex.Message));
+            }
         }
     }
 }

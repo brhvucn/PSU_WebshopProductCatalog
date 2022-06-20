@@ -15,9 +15,23 @@ namespace Webshop.Catalog.Application.Features.Product.Commands.UpdateProduct
     {
         private ILogger<UpdateProductCommand> logger;
         private IProductRepository productReopsitory;
-        public Task<Result> Handle(UpdateProductCommand command, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(UpdateProductCommand command, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Domain.AggregateRoots.Product product = new Domain.AggregateRoots.Product(command.Name, command.SKU, command.Price, command.Currency);
+                product.AmountInStock = command.AmountInStock;
+                product.MinStock = command.MinStock;
+                product.Description = command.Description;
+                product.Id = command.Id;
+                await this.productReopsitory.UpdateAsync(product);
+                return Result.Ok();
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogCritical(ex, ex.Message);
+                return Result.Fail(Errors.General.UnspecifiedError(ex.Message));
+            }
         }
     }
 }

@@ -10,5 +10,6 @@ namespace Webshop.Catalog.Application.Contracts.Persistence
 {
     public interface IProductRepository : IRepository<Product>
     {
+        Task<IEnumerable<Product>> GetAllFromCategory(int categoryId);
     }
 }

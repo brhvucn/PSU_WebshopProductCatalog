@@ -21,9 +21,18 @@ namespace Webshop.Catalog.Application.Features.Product.Commands.DeleteProduct
             this.productRepository = productRepository;
         }
 
-        public Task<Result> Handle(DeleteProductCommand command, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(DeleteProductCommand command, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await this.productRepository.DeleteAsync(command.ProductId);
+                return Result.Ok();
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogCritical(ex, ex.Message);
+                return Result.Fail(Errors.General.UnspecifiedError(ex.Message));
+            }
         }
     }
 }
