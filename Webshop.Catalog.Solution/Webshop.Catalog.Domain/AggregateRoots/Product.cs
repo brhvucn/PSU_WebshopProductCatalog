@@ -26,7 +26,6 @@ namespace Webshop.Catalog.Domain.AggregateRoots
         /// </summary>
         public int Price { get; set; } 
         public string Currency { get; set; } 
-        public int MinStock { get; set; }
-        public IEnumerable<int> Categories { get; set; } = Enumerable.Empty<int>();
+        public int MinStock { get; set; }        
     }
 }

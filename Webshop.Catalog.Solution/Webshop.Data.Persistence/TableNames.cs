@@ -11,6 +11,8 @@ namespace Webshop.Data.Persistence
         public static class Catalog
         {
             public static string CATEGORYTABLE = "Category";
+            public static string PRODUCTTABLE = "Product";
+            public static string PRODUCTCATEGORYTABLE = "ProductCategory";
         }
 
         public static class Customer
