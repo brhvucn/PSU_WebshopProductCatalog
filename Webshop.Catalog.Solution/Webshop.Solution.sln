@@ -27,20 +27,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database Seed", "Database S
 	ProjectSection(SolutionItems) = preProject
 		Category.sql = Category.sql
 		Customers.sql = Customers.sql
+		Product.sql = Product.sql
+		ProductCategory.sql = ProductCategory.sql
 		Seed Demo Customers.sql = Seed Demo Customers.sql
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Customer.Persistence", "Webshop.Customer.Persistence\Webshop.Customer.Persistence.csproj", "{29BE63A8-5FEB-4C07-A0DD-89161A1513DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Customer.Persistence", "Webshop.Customer.Persistence\Webshop.Customer.Persistence.csproj", "{29BE63A8-5FEB-4C07-A0DD-89161A1513DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Customer.Application.Test", "Webshop.Customer.Application.Test\Webshop.Customer.Application.Test.csproj", "{8C9C1E24-70ED-470B-9CA3-026EC06AC89A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Customer.Application.Test", "Webshop.Customer.Application.Test\Webshop.Customer.Application.Test.csproj", "{8C9C1E24-70ED-470B-9CA3-026EC06AC89A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Catalog.Domain", "Webshop.Catalog.Domain\Webshop.Catalog.Domain.csproj", "{92C95CBF-34E1-446C-8A6A-C35CB02C1036}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Catalog.Domain", "Webshop.Catalog.Domain\Webshop.Catalog.Domain.csproj", "{92C95CBF-34E1-446C-8A6A-C35CB02C1036}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Catalog.Api", "Webshop.Catalog.Api\Webshop.Catalog.Api.csproj", "{22054235-5C0C-402B-A353-082290E07760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Catalog.Api", "Webshop.Catalog.Api\Webshop.Catalog.Api.csproj", "{22054235-5C0C-402B-A353-082290E07760}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Catalog.Persistence", "Webshop.Catalog.Persistence\Webshop.Catalog.Persistence.csproj", "{CB696684-000D-40B3-9B3A-CE33027A6F86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Catalog.Persistence", "Webshop.Catalog.Persistence\Webshop.Catalog.Persistence.csproj", "{CB696684-000D-40B3-9B3A-CE33027A6F86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Data.Persistence", "Webshop.Data.Persistence\Webshop.Data.Persistence.csproj", "{3A7E7069-45EC-4D5E-AA5F-2B914EF73113}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Data.Persistence", "Webshop.Data.Persistence\Webshop.Data.Persistence.csproj", "{3A7E7069-45EC-4D5E-AA5F-2B914EF73113}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
