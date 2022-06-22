@@ -1,4 +1,4 @@
-name: .NET
+name: Webshop Build
 
 on:
   push:
