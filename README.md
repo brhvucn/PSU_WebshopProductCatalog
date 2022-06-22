@@ -1,4 +1,6 @@
 # Webshop Solution
+[![Build](https://github.com/brhvucn/PSU_WebshopProductCatalog/actions/workflows/dotnet.yml/badge.svg)](https://github.com/brhvucn/PSU_WebshopProductCatalog/actions/workflows/dotnet.yml)
+
 This solution contains several microservices that builds and mimics a microservice architecture for a web shop. The solution has been containerized to help set up everything in an easy way using docker.
 
 The solution is a .NET 6.0 solution that is implemented following various principles, most services are built using a Clean Architecture and CQRS approach.
