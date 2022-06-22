@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["PSU_PaymentGateway.csproj", "."]
-RUN dotnet restore "./PSU_PaymentGateway.csproj"
+COPY ["Webshop.Payment.Api/Webshop.Payment.Api.csproj", "Webshop.Payment.Api/"]
+RUN dotnet restore "Webshop.Payment.Api/Webshop.Payment.Api.csproj"
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "PSU_PaymentGateway.csproj" -c Release -o /app/build
+WORKDIR "/src/Webshop.Payment.Api"
+RUN dotnet build "Webshop.Payment.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "PSU_PaymentGateway.csproj" -c Release -o /app/publish
+RUN dotnet publish "Webshop.Payment.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PSU_PaymentGateway.dll"]
+ENTRYPOINT ["dotnet", "Webshop.Payment.Api.dll"]
