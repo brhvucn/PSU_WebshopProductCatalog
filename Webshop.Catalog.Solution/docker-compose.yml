@@ -1,0 +1,56 @@
+version: "3.9"
+services:
+  seq:
+    # SeQ is a framework for logging of exceptions etc
+    container_name: SeQ
+    image: datalust/seq:latest
+    restart: unless-stopped
+    ports:
+      - 8081:80
+      - 5341:5341
+    networks:
+      - backtier
+    environment:
+      - ACCEPT_EULA=Y
+  smtp4dev:
+    # development time email server and client, easy to test sending emails
+    container_name: smtp4dev
+    image: rnwood/smtp4dev:latest
+    ports:
+      - 8082:80
+      - 26:25
+    networks:
+      - backtier
+  paymentapi:
+    container_name: webshop.payment
+    image: brhv/webshoppaymentapi
+    restart: unless-stopped
+    ports:
+      - 8083:80
+    networks:
+      - backtier
+  catalogapi:
+    container_name: webshop.catalog
+    image: brhv/webshopcatalogapi
+    restart: unless-stopped
+    ports:
+        - 8084:80
+    networks:
+        - backtier
+  productapi:
+    container_name: webshop.customer
+    image: brhv/webshopcustomerapi
+    restart: unless-stopped
+    ports:
+        - 8085:80
+    networks:
+        - backtier
+networks:
+  # The presence of these objects is sufficient to define them
+  fronttier: {}
+  backtier: {}
+
+
+
+
+
