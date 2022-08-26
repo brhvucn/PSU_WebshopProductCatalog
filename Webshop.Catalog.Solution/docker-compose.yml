@@ -22,6 +22,7 @@ services:
     networks:
       - backtier
   paymentapi:
+   # the payment API
     container_name: webshop.payment
     image: brhv/webshoppaymentapi
     restart: unless-stopped
@@ -30,6 +31,7 @@ services:
     networks:
       - backtier
   catalogapi:
+  # the catalog API
     container_name: webshop.catalog
     image: brhv/webshopcatalogapi
     restart: unless-stopped
@@ -37,7 +39,8 @@ services:
         - 8084:80
     networks:
         - backtier
-  productapi:
+  customerapi:
+  # the customer API
     container_name: webshop.customer
     image: brhv/webshopcustomerapi
     restart: unless-stopped

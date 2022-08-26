@@ -34,7 +34,7 @@ namespace Webshop.Catalog.Api
                 .Enrich.FromLogContext()
                 .Enrich.WithProperty("Service", "Catalog.API") //enrich with the tag "service" and the name of this service
                 .WriteTo.Seq(sequrl)
-                .CreateLogger();
+                .CreateLogger();            
         }
 
         public IConfiguration Configuration { get; }
