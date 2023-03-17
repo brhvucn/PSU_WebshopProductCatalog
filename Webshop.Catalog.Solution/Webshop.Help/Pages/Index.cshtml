@@ -1,0 +1,47 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    bool hasErrors = TempData["errors"] != null;
+    bool hasSeeded = !string.IsNullOrEmpty(Request.Query["seed"]);
+    string[] errors = new string[0];
+    if (hasErrors)
+    {
+        errors = (string[])TempData["errors"];
+    }
+}
+
+<div class="box">
+    <h1 class="title is-2">PSU Webshop - Help</h1>
+    <p>This document contains links to help navigate this webshop solution as well as a way of creating the database.</p>
+    <ul>
+        <li><strong>SEQ</strong> - Centralized logging - is running on port 8081 - <a href="http://localhost:8081" target="_blank">Click here to open</a></li>
+        <li><strong>Smtp4Dev</strong> - developer smtp server - is running on port 8082 - <a href="http://localhost:8082" target="_blank">Click here to open</a></li>
+        <li><strong>Payment API</strong> - API service to simulate payments - is running on port 8083 - <a href="http://localhost:8083/swagger" target="_blank">Click here to open</a> </li>
+        <li><strong>Catalog API</strong> - API service to simulate products and categories - is running on port 8084 - <a href="http://localhost:8084/swagger" target="_blank">Click here to open</a> </li>
+        <li><strong>Customer API</strong> - API service to simulate customers - is running on port 8085 - <a href="http://localhost:8085/swagger" target="_blank">Click here to open</a> </li>
+        <li><strong>SQL Server Express</strong> - database server - is running on port 1533 - connect your Management Studio to: <span style="background-color:#EFEFEF;font-family:consolas">localhost,1533. Username=sa, Password=PSU@password</span> </li>
+    </ul>
+</div>
+<hr />
+<div class="box">
+    <h1 class="title is-3">Seed Database</h1>
+    <div>This will create the database and the tables to be used in this solution.</div><br/>
+    <form method="post">
+        <button class="button is-success">Create Database</button>
+    </form>
+        @if (hasErrors)
+        {            
+            <div style="padding:20px;background-color:#DEDEDE;font-family:consolas">
+                @foreach(var error in errors)
+                {
+                <p>@error</p>
+                }
+        </div>
+    }
+    @if(hasSeeded)
+    {
+        <br/>
+        <div class="notification is-info">Database created</div>
+    }
+</div>

@@ -1,5 +1,16 @@
 version: "3.9"
 services:
+  help:
+    # SeQ is a framework for logging of exceptions etc
+    container_name: webshophelp
+    image: brhv/webshophelp
+    restart: unless-stopped
+    ports:
+      - 8000:80      
+    networks:
+      - backtier
+    environment:
+      - SERVER=webshopdatabase
   seq:
     # SeQ is a framework for logging of exceptions etc
     container_name: SeQ
@@ -48,9 +59,23 @@ services:
         - 8085:80
     networks:
         - backtier
+  sqlexpress:
+  #the sql server
+    container_name: webshopdatabase
+    image: mcr.microsoft.com/mssql/server:latest
+    restart: unless-stopped
+    ports:
+        - 1433:1433
+    environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=PSU@password
+        - MSSQL_PID=Express
+    volumes:
+        - ./data:/var/opt/mssql/data
+    networks:
+        - backtier
 networks:
   # The presence of these objects is sufficient to define them
-  fronttier: {}
   backtier: {}
 
 

@@ -28,11 +28,6 @@ namespace Webshop.Customer.Api
         private bool useJsondatabase = false;
         public Startup(IConfiguration configuration)
         {
-            string useJsonDbVariable = Environment.GetEnvironmentVariable("USE_JSONDB");
-            if (!string.IsNullOrEmpty(useJsonDbVariable))
-            {
-                this.useJsondatabase = useJsonDbVariable.ToLower() == "true";
-            }
             Configuration = configuration;
             string sequrl = Configuration.GetValue<string>("Settings:SeqLogAddress");
             Log.Logger = new LoggerConfiguration()
@@ -54,14 +49,7 @@ namespace Webshop.Customer.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Webshop.Customer.Api", Version = "v1" });
             });
             //add own services
-            if (this.useJsondatabase)
-            {
-                services.AddScoped<ICustomerRepository, CustomerRepositoryJSON>(); //use the json version
-            }
-            else
-            {
-                services.AddScoped<ICustomerRepository, CustomerRepository>();
-            }
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<DataContext, DataContext>();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddMediatR(Assembly.GetExecutingAssembly());
