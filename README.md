@@ -1,5 +1,5 @@
 # Webshop Solution
-[![Build](https://github.com/brhvucn/PSU_WebshopProductCatalog/actions/workflows/dotnet.yml/badge.svg)](https://github.com/brhvucn/PSU_WebshopProductCatalog/actions/workflows/dotnet.yml)
+[![Build](https://github.com/BranikMacik/PSU_WebshopProductCatalog/actions/workflows/dotnet.yml/badge.svg)](https://github.com/BranikMacik/PSU_WebshopProductCatalog/actions/workflows/dotnet.yml)
 
 This solution contains several microservices that builds and mimics a microservice architecture for a web shop. The solution has been containerized to help set up everything in an easy way using docker.
 
