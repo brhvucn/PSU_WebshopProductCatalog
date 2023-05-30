@@ -22,6 +22,11 @@ namespace Webshop.Order.Api.Controllers
             this.logger = logger;  
         }
 
+        /// <summary>
+        /// Creates a new order with the specified customer, date of issue, due date, and ordered items.
+        /// </summary>
+        /// <param name="request">The request containing order details.</param>
+        /// <returns>The result of the order creation operation.</returns>
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
         { 
@@ -46,5 +51,12 @@ namespace Webshop.Order.Api.Controllers
                 return Error(result.Errors);
             }
         }
+
+        //Get all orders
+        //Get order by ID
+        //Get orders by Customers
+        //Delete order by ID
+
+
     }
 }

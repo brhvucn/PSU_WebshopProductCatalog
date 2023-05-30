@@ -10,17 +10,19 @@ namespace Webshop.Order.Application.Features.Category.Commands.CreateOrder
 {
     public class CreateOrderCommand : ICommand
     {
-        public CreateOrderCommand(Customer customer, DateTime dateOfIssue, DateTime dueDate, Dictionary<Catalog.Domain.AggregateRoots.Product, int> orderProducts)
+        public CreateOrderCommand(Customer customer, DateTime dateOfIssue, DateTime dueDate, int discount, Dictionary<Catalog.Domain.AggregateRoots.Product, int> orderProducts)
         {
             Customer = customer;
             DateOfIssue = dateOfIssue;
             DueDate = dueDate;
             OrderProducts = orderProducts;
+            Discount = discount;
         }
 
         public Customer Customer { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime DueDate { get; set; }
+        public int Discount { get; set; }
         public Dictionary<Catalog.Domain.AggregateRoots.Product, int> OrderProducts { get; set; }
     }
 }

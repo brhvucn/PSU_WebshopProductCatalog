@@ -30,6 +30,7 @@ namespace Webshop.Domain.AggregateRoots
         public Customer Customer { get; set; }
         public DateTime DateOfIssue { get; set; }
         public DateTime DueDate { get; set; }
+        public int Discount { get; set; }
         public Dictionary<Catalog.Domain.AggregateRoots.Product, int> OrderedProducts { get; set; } 
     }
 }
