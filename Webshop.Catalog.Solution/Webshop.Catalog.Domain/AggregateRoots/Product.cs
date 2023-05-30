@@ -20,6 +20,9 @@ namespace Webshop.Catalog.Domain.AggregateRoots
         public Product() { } //for ORM
         public string Name { get; private set; }
         public string Description { get; set; }
+        /// <summary>
+        /// Stock keeping unit
+        /// </summary>
         public string SKU { get; set; }
         public int AmountInStock { get; set; }
 
