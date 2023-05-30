@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Webshop.Application.Contracts;
-using Webshop.Order.Application.Features.Category.Requests;
-using Webshop.Order.Application.Features.Category.Commands.CreateOrder;
 using Webshop.Domain.Common;
-using Webshop.Order.Application.Features.Category.Queries.GetOrders;
-using Webshop.Order.Application.Features.Category.Dtos;
+using Webshop.Order.Application.Features.Order.Dtos;
+using Webshop.Order.Application.Features.Order.Queries.GetOrders;
+using Webshop.Order.Application.Features.Order.Commands.CreateOrder;
+using Webshop.Order.Application.Features.Order.Requests;
+using Webshop.Order.Application.Features.Order.Commands.DeleteOrder;
 
 namespace Webshop.Order.Api.Controllers
 {
@@ -17,11 +18,11 @@ namespace Webshop.Order.Api.Controllers
         private ILogger<OrderController> logger;
         private IMapper mapper;
 
-        public OrderController(IDispatcher dispatcher, IMapper mapper, ILogger<OrderController> logger) 
+        public OrderController(IDispatcher dispatcher, IMapper mapper, ILogger<OrderController> logger)
         {
             this.dispatcher = dispatcher;
             this.mapper = mapper;
-            this.logger = logger;  
+            this.logger = logger;
         }
 
         /// <summary>
@@ -31,7 +32,7 @@ namespace Webshop.Order.Api.Controllers
         /// <returns>The result of the order creation operation.</returns>
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
-        { 
+        {
             CreateOrderRequest.Validator validator = new CreateOrderRequest.Validator();
             var result = await validator.ValidateAsync(request);
             if (result.IsValid)
@@ -41,7 +42,7 @@ namespace Webshop.Order.Api.Controllers
                 if (commandResult.Success)
                 {
                     return Ok();
-                } 
+                }
                 else
                 {
                     return Error(commandResult.Error);
@@ -53,7 +54,7 @@ namespace Webshop.Order.Api.Controllers
                 return Error(result.Errors);
             }
         }
-        
+
         /// <summary>
         /// Retrieves the Orders with the specified ID.
         /// </summary>
@@ -63,7 +64,7 @@ namespace Webshop.Order.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetOrder(int id)
         {
-            GetOrderQuery query = new GetOrderQuery(id);
+            GetOrdersByCustomer query = new GetOrdersByCustomer(id);
             var result = await dispatcher.Dispatch(query);
             if (result.Success)
             {
@@ -76,16 +77,50 @@ namespace Webshop.Order.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetAllOrders() 
+        public async Task<IActionResult> GetAllOrders()
         {
-            
+            GetAllOrdersQuery query = new GetAllOrdersQuery();
+            var result = await dispatcher.Dispatch(query);
+            if (result.Success)
+            {
+                return FromResult<IEnumerable<OrderDto>>(result);
+            }
+            else
+            {
+                this.logger.LogError(string.Join(",", result.Error.Message));
+                return Error(result.Error);
+            }
         }
-        //Get all orders
-        //Get order by ID
+
         //Get orders by Customers
-        //Delete order by ID
+        /*[HttpGet]
+        [Route("{customerId}")]
+        public async Task<IActionResult> GetOrderByCustomer(int customerId)
+        {
+            {
+                GetOrdersByCustomer query = new GetOrdersByCustomer(customerId);
+                var result = await this.dispatcher.Dispatch(query);
+                return FromResult<IEnumerable<OrderDto>>(result);
+            }
+        }*/
 
-
+        /// <summary>
+        /// Deletes the order by the specified ID
+        /// </summary>
+        /// <param name="orderId">The ID of the order to delete.</param>
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteById(int id)
+        {
+            DeleteOrderCommand command = new DeleteOrderCommand(id);
+            var commandResult = await this.dispatcher.Dispatch(command);
+            return FromResult(commandResult);
+        }
     }
 }
+

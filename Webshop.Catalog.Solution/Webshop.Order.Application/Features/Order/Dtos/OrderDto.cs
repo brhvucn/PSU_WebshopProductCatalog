@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Webshop.Domain.AggregateRoots;
 
-namespace Webshop.Order.Application.Features.Category.Dtos
+namespace Webshop.Order.Application.Features.Order.Dtos
 {
     public class OrderDto
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Webshop.Order.Application.Features.Category.Requests
+namespace Webshop.Order.Application.Features.Order.Requests
 {
     public class UpdateOrderRequest
     {

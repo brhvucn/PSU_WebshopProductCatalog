@@ -6,13 +6,13 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
-using Webshop.Order.Application.Features.Category.Dtos;
+using Webshop.Order.Application.Features.Order.Dtos;
 
-namespace Webshop.Order.Application.Features.Category.Queries.GetOrders
+namespace Webshop.Order.Application.Features.Order.Queries.GetOrders
 {
-    public class GetOrderQuery : IQuery<OrderDto>
+    public class GetOrdersByCustomer : IQuery<OrderDto>
     {
-        public GetOrderQuery(int orderId)
+        public GetOrdersByCustomer(int orderId)
         {
             OrderId  = orderId;
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Webshop.Domain.AggregateRoots;
 using Webshop.Domain.Common;
 
-namespace Webshop.Order.Application.Features.Category.Requests
+namespace Webshop.Order.Application.Features.Order.Requests
 {
     public class CreateOrderRequest
     {
@@ -27,14 +27,14 @@ namespace Webshop.Order.Application.Features.Category.Requests
                 RuleFor(r => r.Customer)
                     .NotNull()
                     .WithMessage(Errors.General.ValueIsRequired(nameof(Customer)).Message);
-                
+
                 /// <summary>
                 /// Checks if the Date of Issue has been set
                 /// </summary>
                 RuleFor(r => r.DateOfIssue)
                     .GreaterThan(DateTime.MinValue)
                     .WithMessage(Errors.General.ValueIsRequired(nameof(DateOfIssue)).Message);
-                
+
                 /*
                 /// <summary>
                 /// Checks if the Due Date has been set
@@ -52,7 +52,7 @@ namespace Webshop.Order.Application.Features.Category.Requests
                     .WithMessage(Errors.General.ValueTooSmall(nameof(Discount), 0).Message)
                     .LessThan(16)
                     .WithMessage(Errors.General.ValueTooLarge(nameof(Discount), 15).Message);
-                
+
                 /// <summary>
                 /// Checks if the Ordered Items Dictionary contains at least one element (Product)
                 /// </summary>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 using Webshop.Domain.AggregateRoots;
 
-namespace Webshop.Order.Application.Features.Category.Commands.CreateOrder
+namespace Webshop.Order.Application.Features.Order.Commands.CreateOrder
 {
     public class CreateOrderCommand : ICommand
     {
