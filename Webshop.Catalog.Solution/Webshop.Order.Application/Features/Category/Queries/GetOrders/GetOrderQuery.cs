@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Webshop.Order.Application.Features.Category.Queries.GetOrders
 {
-    internal interface GetOrderQuery
+    public class GetOrderQuery
     {
     }
 }

@@ -1,0 +1,35 @@
+﻿using EnsureThat;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Webshop.Domain.Common;
+
+namespace Webshop.Domain.AggregateRoots
+{
+    public class Order : AggregateRoot
+    {
+        public Order(Customer customer, DateTime dateOfIssue, DateTime dueDate, Dictionary<Catalog.Domain.AggregateRoots.Product, int> orderedProducts)
+        {
+            Ensure.That(dateOfIssue != DateTime.MinValue);
+            DateOfIssue = dateOfIssue;
+        
+            Ensure.That(dueDate != DateTime.MinValue);
+            DueDate = dueDate;
+
+            Ensure.That(customer != null);
+            Customer = customer;
+
+            Ensure.That(OrderedProducts != null);
+            OrderedProducts = orderedProducts;
+        }
+
+        public Order() { } //for ORM
+
+        public Customer Customer { get; set; }
+        public DateTime DateOfIssue { get; set; }
+        public DateTime DueDate { get; set; }
+        public Dictionary<Catalog.Domain.AggregateRoots.Product, int> OrderedProducts { get; set; } 
+    }
+}

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Webshop.Order.Application.Features.Category.Dtos
 {
-    internal interface OrderDto
+    public class OrderDto
     {
     }
 }

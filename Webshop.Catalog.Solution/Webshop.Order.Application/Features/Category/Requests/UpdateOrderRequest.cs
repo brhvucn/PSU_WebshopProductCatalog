@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Webshop.Order.Application.Features.Category.Requests
 {
-    internal interface UpdateOrderRequest
+    public class UpdateOrderRequest
     {
     }
 }
