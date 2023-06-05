@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Webshop.Catalog.Domain\Webshop.Catalog.Domain.csproj" />
+    <ProjectReference Include="..\Webshop.Domain\Webshop.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

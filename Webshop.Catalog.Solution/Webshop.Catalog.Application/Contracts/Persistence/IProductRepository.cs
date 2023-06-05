@@ -14,5 +14,6 @@ namespace Webshop.Catalog.Application.Contracts.Persistence
         Task<IEnumerable<Product>> GetAllFromCategory(int categoryId);
         Task<Result> AddProductToCategory(int productId, int categoryId);
         Task<Result> RemoveProductFromCategory(int productId, int categoryId);
+        Task<IEnumerable<Product>> GetProductsForOrderAsync(int orderId);
     }
 }
