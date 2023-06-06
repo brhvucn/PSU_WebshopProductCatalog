@@ -2,7 +2,7 @@
 using Webshop.Order.Application.Features.Order.Dtos;
 using Webshop.Application.Contracts;
 
-namespace Webshop.Order.Application.Features.Order.Queries.GetOrders
+namespace Webshop.Order.Application.Features.Order.Queries.GetOrderByCustomer
 {
     public class GetOrdersByCustomerQuery : IQueryHandler<IEnumerable<OrderDto>>
     {

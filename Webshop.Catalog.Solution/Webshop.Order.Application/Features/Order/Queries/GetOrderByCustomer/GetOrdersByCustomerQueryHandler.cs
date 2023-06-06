@@ -9,11 +9,12 @@ using Webshop.Application.Contracts;
 using Webshop.Domain.Common;
 using Webshop.Order.Application.Contracts.Persistence;
 using Webshop.Order.Application.Features.Order.Dtos;
+using Webshop.Order.Application.Features.Order.Queries.GetOrderByCustomer;
 using Webshop.Order.Application.Features.Order.Queries.GetOrders;
 
 namespace Webshop.Order.Application.Features.Order.Queries.GetOrdersByCustomer
 {
-    internal class GetOrdersByCustomerQueryHandler : IQueryHandler<GetOrdersByCustomerQuery, IEnumerable<OrderDto>>
+    public class GetOrdersByCustomerQueryHandler : IQueryHandler<GetOrdersByCustomerQuery, IEnumerable<OrderDto>>
     {
         private ILogger<GetOrdersByCustomerQueryHandler> logger;
         private IMapper mapper;

@@ -10,7 +10,7 @@ using Webshop.Order.Application.Contracts.Persistence;
 
 namespace Webshop.Order.Application.Features.Order.Commands.CreateOrder
 {
-    internal class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand>
+    public class CreateOrderCommandHandler : ICommandHandler<CreateOrderCommand>
     {
         private ILogger<CreateOrderCommandHandler> logger;
         private IOrderRepository orderRepository;
@@ -25,7 +25,7 @@ namespace Webshop.Order.Application.Features.Order.Commands.CreateOrder
         {
             try
             {
-                Domain.AggregateRoots.Order newOrder = new Domain.AggregateRoots.Order(command.Customer, command.DateOfIssue, command.DueDate, command.OrderProducts);
+                Domain.AggregateRoots.Order newOrder = new Domain.AggregateRoots.Order(command.Customer, command.DateOfIssue, command.DueDate, command.Discount, command.OrderProducts);
                 await this.orderRepository.CreateAsync(newOrder);
                 return Result.Ok();
             }

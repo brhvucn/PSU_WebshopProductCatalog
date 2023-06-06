@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnsureThat;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,16 @@ namespace Webshop.Order.Application.Features.Order.Commands.CreateOrder
     {
         public CreateOrderCommand(Customer customer, DateTime dateOfIssue, DateTime dueDate, int discount, Dictionary<Catalog.Domain.AggregateRoots.Product, int> orderProducts)
         {
+            Ensure.That(customer, nameof(customer)).IsNotNull();
             Customer = customer;
+            Ensure.That(dateOfIssue, nameof(dateOfIssue)).IsNot(DateTime.MinValue);
             DateOfIssue = dateOfIssue;
+            Ensure.That(dueDate, nameof(dueDate)).IsNot(DateTime.MinValue);
             DueDate = dueDate;
+            Ensure.That(orderProducts, nameof(orderProducts)).IsNotNull();
+            Ensure.That(orderProducts, nameof(orderProducts)).HasItems();
             OrderProducts = orderProducts;
+            Ensure.That(discount, nameof(discount)).IsInRange(0,15);
             Discount = discount;
         }
 

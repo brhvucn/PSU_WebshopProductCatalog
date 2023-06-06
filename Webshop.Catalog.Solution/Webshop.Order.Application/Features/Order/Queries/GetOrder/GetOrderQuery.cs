@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EnsureThat;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Webshop.Order.Application.Features.Order.Queries.GetOrder
     {
         public GetOrderQuery(int orderId)
         {
+            //Smallest possible id is 1
+            Ensure.That(orderId, nameof(orderId)).IsGt(0);
             OrderId  = orderId;
         }
 

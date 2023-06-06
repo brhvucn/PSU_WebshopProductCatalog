@@ -18,7 +18,7 @@ namespace Webshop.Order.Domain.AggregateRoots
 {
     public class Order : AggregateRoot
     {
-        public Order(Customer customer, DateTime dateOfIssue, DateTime dueDate, Dictionary<Catalog.Domain.AggregateRoots.Product, int> orderedProducts)
+        public Order(Customer customer, DateTime dateOfIssue, DateTime dueDate, int discount, Dictionary<Catalog.Domain.AggregateRoots.Product, int> orderedProducts)
         {
             Ensure.That(dateOfIssue != DateTime.MinValue);
             DateOfIssue = dateOfIssue;
@@ -29,7 +29,11 @@ namespace Webshop.Order.Domain.AggregateRoots
             Ensure.That(customer != null);
             Customer = customer;
 
-            Ensure.That(OrderedProducts != null);
+            Ensure.That(discount < 0 && discount > 15);
+            Discount = discount;
+
+            Ensure.That(orderedProducts).IsNotNull();
+            Ensure.That(orderedProducts.Count > 0);
             OrderedProducts = orderedProducts;
         }
 
@@ -37,6 +41,9 @@ namespace Webshop.Order.Domain.AggregateRoots
 
         public Customer Customer { get; set; }
         public DateTime DateOfIssue { get; set; }
+        /// <summary>
+        /// The date, order is expected to be delivered
+        /// </summary>
         public DateTime DueDate { get; set; }
         public int Discount { get; set; }
         public Dictionary<Catalog.Domain.AggregateRoots.Product, int> OrderedProducts { get; set; }

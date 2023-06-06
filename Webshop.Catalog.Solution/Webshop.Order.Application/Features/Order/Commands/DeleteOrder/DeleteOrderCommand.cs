@@ -1,11 +1,14 @@
-﻿using Webshop.Application.Contracts;
+﻿using EnsureThat;
+using Webshop.Application.Contracts;
 
 namespace Webshop.Order.Application.Features.Order.Commands.DeleteOrder
 {
-    public class DeleteOrderCommand : ICommand
+    public class GetOrderCommand : ICommand
     {
-        public DeleteOrderCommand(int orderId)
+        public GetOrderCommand(int orderId)
         {
+            //Smallest possible id is 1
+            Ensure.That(orderId, nameof(orderId)).IsGt(0);
             OrderId = orderId;
         }
 

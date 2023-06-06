@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Webshop.Application.Contracts;
 using Webshop.Domain.Common;
 using Webshop.Order.Application.Features.Order.Dtos;
-using Webshop.Order.Application.Features.Order.Queries.GetOrders;
+using Webshop.Order.Application.Features.Order.Queries.GetOrderByCustomer;
 using Webshop.Order.Application.Features.Order.Commands.CreateOrder;
 using Webshop.Order.Application.Features.Order.Requests;
 using Webshop.Order.Application.Features.Order.Commands.DeleteOrder;
+using Webshop.Order.Application.Features.Order.Queries.GetOrders;
 
 namespace Webshop.Order.Api.Controllers
 {
@@ -64,11 +65,11 @@ namespace Webshop.Order.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetOrder(int id)
         {
-            GetOrdersByCustomer query = new GetOrdersByCustomer(id);
+            GetOrdersByCustomerQuery query = new GetOrdersByCustomerQuery(id);
             var result = await dispatcher.Dispatch(query);
             if (result.Success)
             {
-                return FromResult<OrderDto>(result);
+                return FromResult<IEnumerable<OrderDto>>(result);
             }
             else
             {
@@ -117,7 +118,7 @@ namespace Webshop.Order.Api.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteById(int id)
         {
-            DeleteOrderCommand command = new DeleteOrderCommand(id);
+            GetOrderCommand command = new GetOrderCommand(id);
             var commandResult = await this.dispatcher.Dispatch(command);
             return FromResult(commandResult);
         }
