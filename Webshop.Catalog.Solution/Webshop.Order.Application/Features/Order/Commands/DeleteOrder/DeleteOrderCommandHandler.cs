@@ -6,24 +6,34 @@ using System.Text;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 using Webshop.Domain.Common;
-using Webshop.Order.Application.Contracts.Persistance;
+using Webshop.Order.Application.Contracts.Persistence;
+using Webshop.Order.Application.Features.Order.Commands.DeleteOrder;
 
 namespace Webshop.Order.Application.Features.Order.Commands.CreateOrder
 {
-    internal class DeleteOrderCommandHandler : ICommandHandler<CreateOrderCommand>
+    public class DeleteOrderCommandHandler : ICommandHandler<DeleteOrderCommand>
     {
-        private ILogger<CreateOrderCommandHandler> logger;
+        private ILogger<DeleteOrderCommandHandler> logger;
         private IOrderRepository orderRepository;
 
-        public DeleteOrderCommandHandler(ILogger<CreateOrderCommandHandler> logger, IOrderRepository orderRepository)
+        public DeleteOrderCommandHandler(ILogger<DeleteOrderCommandHandler> logger, IOrderRepository orderRepository)
         {
             this.logger = logger;
             this.orderRepository = orderRepository;
         }
 
-        public Task<Result> Handle(CreateOrderCommand command, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(DeleteOrderCommand command, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await this.orderRepository.DeleteAsync(command.OrderId);
+                return Result.Ok();
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogCritical(ex, ex.Message);
+                return Result.Fail(Errors.General.UnspecifiedError(ex.Message));
+            }
         }
     }
 }

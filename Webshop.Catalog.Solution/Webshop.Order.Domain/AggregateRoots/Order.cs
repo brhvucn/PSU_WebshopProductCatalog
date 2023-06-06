@@ -4,9 +4,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Webshop.Domain.AggregateRoots;
+using EnsureThat;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Webshop.Catalog.Domain.AggregateRoots;
 using Webshop.Domain.Common;
 
-namespace Webshop.Domain.AggregateRoots
+namespace Webshop.Order.Domain.AggregateRoots
 {
     public class Order : AggregateRoot
     {
@@ -14,7 +22,7 @@ namespace Webshop.Domain.AggregateRoots
         {
             Ensure.That(dateOfIssue != DateTime.MinValue);
             DateOfIssue = dateOfIssue;
-        
+
             Ensure.That(dueDate != DateTime.MinValue);
             DueDate = dueDate;
 
@@ -31,6 +39,8 @@ namespace Webshop.Domain.AggregateRoots
         public DateTime DateOfIssue { get; set; }
         public DateTime DueDate { get; set; }
         public int Discount { get; set; }
-        public Dictionary<Catalog.Domain.AggregateRoots.Product, int> OrderedProducts { get; set; } 
+        public Dictionary<Catalog.Domain.AggregateRoots.Product, int> OrderedProducts { get; set; }
     }
+
+
 }

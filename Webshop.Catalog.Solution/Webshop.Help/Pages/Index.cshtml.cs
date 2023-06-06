@@ -40,13 +40,15 @@ namespace Webshop.Help.Pages
             CreateCustomerTable();
             CreateProductTable();
             CreateProductCategoryTable();
+            CreateOrderTable();
+            CreateOrderProductTable();
             TempData["errors"] = Errors;
             return Redirect("/?seed=1");
         }
 
         private void CreateDatabase()
-        {            
-            ExecuteSQL("CREATE DATABASE psuwebshop", this.connectionString);           
+        {
+            ExecuteSQL("CREATE DATABASE psuwebshop", this.connectionString);
         }
 
         private void CreateCategoryTable()
@@ -117,6 +119,38 @@ namespace Webshop.Help.Pages
             ExecuteSQL(sql, this.connectionString);
         }
 
+        private void CreateOrderTable()
+        {
+            string sql = @"CREATE TABLE Order(
+            	[Id] [int] IDENTITY(1,1) NOT NULL,
+            	[DateOfIssue] [DATETIME] NOT NULL,
+            	[DueDate] [DATETIME] NOT NULL,
+            	[Discount] INT,
+            	[Description] [ntext] NOT NULL,
+                CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED 
+                (
+                	[Id] ASC
+                )
+            )";
+
+            ExecuteSQL(sql, this.connectionString);
+        }
+
+        private void CreateOrderProductTable()
+        {
+            const string sql = @"CREATE TABLE [OrderProduct]
+            (
+                [OrderID] INT,
+                [ProductID] INT,
+                Quantity INT,
+                PRIMARY KEY (OrderID, ProductID),
+                FOREIGN KEY (OrderID) REFERENCES [Order](Id),
+                FOREIGN KEY (ProductID) REFERENCES Product(Id)
+            )";
+
+            ExecuteSQL(sql, this.connectionString);
+        }
+
         private void ExecuteSQL(string sql, string localConnectionString)
         {
             try
@@ -130,7 +164,8 @@ namespace Webshop.Help.Pages
                         command.ExecuteNonQuery();
                     }
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Errors.Add(ex.Message);
             }

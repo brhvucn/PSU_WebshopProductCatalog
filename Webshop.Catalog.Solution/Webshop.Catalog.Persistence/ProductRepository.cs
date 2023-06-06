@@ -90,6 +90,19 @@ namespace Webshop.Catalog.Persistence
             }
         }
 
+        public async Task<IEnumerable<Product>> GetProductsForOrderAsync(int orderId)
+        {
+            using var connection = dataContext.CreateConnection();
+            var query = $"select p.Name, p.Description, p.SKU, p.AmountInStock, p.Price, p.Currency, p.MinStock " +
+                        $"from {TableName} as p " +
+                        $"inner join {TableNames.Order.ORDERPRODUCTTABLE} op " +
+                        $"on p.Id = op.ProductId " +
+                        $"inner join {TableNames.Order.ORDERTABLE} o " +
+                        $"on op.OrderId = o.Id " +
+                        $"where o.Id = @orderId";
+            return await connection.QueryAsync<Product>(query, new { orderId });
+        }
+
         public async Task UpdateAsync(Product entity)
         {
             using (var connection = dataContext.CreateConnection())

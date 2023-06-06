@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 using Webshop.Domain.Common;
-using Webshop.Order.Application.Contracts.Persistance;
+using Webshop.Order.Application.Contracts.Persistence;
 
 namespace Webshop.Order.Application.Features.Order.Commands.CreateOrder
 {
@@ -21,9 +21,19 @@ namespace Webshop.Order.Application.Features.Order.Commands.CreateOrder
             this.orderRepository = orderRepository;
         }
 
-        public Task<Result> Handle(CreateOrderCommand command, CancellationToken cancellationToken = default)
+        public async Task<Result> Handle(CreateOrderCommand command, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Domain.AggregateRoots.Order newOrder = new Domain.AggregateRoots.Order(command.Customer, command.DateOfIssue, command.DueDate, command.OrderProducts);
+                await this.orderRepository.CreateAsync(newOrder);
+                return Result.Ok();
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogCritical(ex, ex.Message);
+                return Result.Fail(Errors.General.UnspecifiedError(ex.Message));
+            }
         }
     }
 }

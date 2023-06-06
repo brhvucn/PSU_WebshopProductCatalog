@@ -13,7 +13,7 @@ namespace Webshop.Domain.ValueObjects
         public string Message { get; }
         public int StatusCode { get; }
 
-        internal Error(string code, string message, int statusCode = 400)
+        public Error(string code, string message, int statusCode = 400)
         {
             Code = code;
             Message = message;

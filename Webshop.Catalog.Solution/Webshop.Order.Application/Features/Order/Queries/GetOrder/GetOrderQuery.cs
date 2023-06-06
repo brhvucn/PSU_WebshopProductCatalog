@@ -10,9 +10,9 @@ using Webshop.Order.Application.Features.Order.Dtos;
 
 namespace Webshop.Order.Application.Features.Order.Queries.GetOrders
 {
-    public class GetOrdersByCustomer : IQuery<OrderDto>
+    public class GetOrderQuery : IQuery<OrderDto>
     {
-        public GetOrdersByCustomer(int orderId)
+        public GetOrderQuery(int orderId)
         {
             OrderId  = orderId;
         }
