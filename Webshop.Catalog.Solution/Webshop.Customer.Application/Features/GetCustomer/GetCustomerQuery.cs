@@ -9,7 +9,7 @@ using Webshop.Customer.Application.Features.Dto;
 
 namespace Webshop.Customer.Application.Features.GetCustomer
 {
-    public class GetCustomerQuery : IQuery<CustomerDto>
+    public class GetCustomerQuery : IQueryHandler<CustomerDto>
     {
         public GetCustomerQuery(int customerId)
         {

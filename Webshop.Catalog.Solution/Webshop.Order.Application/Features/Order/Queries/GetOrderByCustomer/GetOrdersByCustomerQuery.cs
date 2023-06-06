@@ -4,7 +4,7 @@ using Webshop.Application.Contracts;
 
 namespace Webshop.Order.Application.Features.Order.Queries.GetOrders
 {
-    public class GetOrdersByCustomerQuery : IQuery<IEnumerable<OrderDto>>
+    public class GetOrdersByCustomerQuery : IQueryHandler<IEnumerable<OrderDto>>
     {
         public GetOrdersByCustomerQuery(int customerId)
         {

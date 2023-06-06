@@ -8,7 +8,7 @@ using Webshop.Domain.Common;
 
 namespace Webshop.Application.Contracts
 {
-    public interface IQuery<T> : IRequest<Result<T>>
+    public interface IQueryHandler<T> : IRequest<Result<T>>
     {
 
     }

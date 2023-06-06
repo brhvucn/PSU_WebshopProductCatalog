@@ -8,7 +8,7 @@ using Webshop.Catalog.Application.Features.Product.Dtos;
 
 namespace Webshop.Catalog.Application.Features.Product.Queries.GetProducts
 {
-    public class GetProductsQuery : IQuery<IEnumerable<ProductDto>>
+    public class GetProductsQuery : IQueryHandler<IEnumerable<ProductDto>>
     {
         public GetProductsQuery(int categoryId)
         {

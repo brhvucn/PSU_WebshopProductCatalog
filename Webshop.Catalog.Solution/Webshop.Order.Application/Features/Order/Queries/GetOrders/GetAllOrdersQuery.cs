@@ -8,7 +8,7 @@ using Webshop.Order.Application.Features.Order.Dtos;
 
 namespace Webshop.Order.Application.Features.Order.Queries.GetOrders
 {
-    public class GetAllOrdersQuery : IQuery<IEnumerable<OrderDto>>
+    public class GetAllOrdersQuery : IQueryHandler<IEnumerable<OrderDto>>
     {
      
     }

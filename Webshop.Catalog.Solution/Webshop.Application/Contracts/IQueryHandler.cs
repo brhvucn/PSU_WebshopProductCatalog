@@ -10,7 +10,7 @@ using Webshop.Domain.Common;
 namespace Webshop.Application.Contracts
 {
     public interface IQueryHandler<TQuery, TResult>
-        : IRequestHandler<TQuery, Result<TResult>> where TQuery : IQuery<TResult>
+        : IRequestHandler<TQuery, Result<TResult>> where TQuery : IQueryHandler<TResult>
     {
         new Task<Result<TResult>> Handle(TQuery query, CancellationToken cancellationToken = default);
     }

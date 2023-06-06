@@ -20,7 +20,7 @@ namespace Webshop.Application
 
         public IMediator Mediator { get; }
 
-        public Task<Result<T>> Dispatch<T>(IQuery<T> query)
+        public Task<Result<T>> Dispatch<T>(IQueryHandler<T> query)
         {
             Ensure.That(query, nameof(query)).IsNotNull();
             return Mediator.Send(query);

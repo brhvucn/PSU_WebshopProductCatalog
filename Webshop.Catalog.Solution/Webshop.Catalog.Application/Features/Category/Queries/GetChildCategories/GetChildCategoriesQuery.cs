@@ -8,7 +8,7 @@ using Webshop.Category.Application.Features.Category.Dtos;
 
 namespace Webshop.Category.Application.Features.Category.Queries.GetChildCategories
 {
-    public class GetChildCategoriesQuery : IQuery<IEnumerable<CategoryDto>>
+    public class GetChildCategoriesQuery : IQueryHandler<IEnumerable<CategoryDto>>
     {
         public GetChildCategoriesQuery(int parentCategoryId)
         {

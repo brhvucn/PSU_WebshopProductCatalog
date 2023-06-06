@@ -9,7 +9,7 @@ using Webshop.Category.Application.Features.Category.Dtos;
 
 namespace Webshop.Category.Application.Features.Category.Queries.GetCategories
 {
-    public class GetCategoriesQuery : IQuery<List<CategoryDto>>
+    public class GetCategoriesQuery : IQueryHandler<List<CategoryDto>>
     {
         public GetCategoriesQuery(bool includeChildCategories)
         {

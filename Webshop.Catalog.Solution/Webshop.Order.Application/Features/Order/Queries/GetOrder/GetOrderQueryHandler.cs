@@ -9,8 +9,9 @@ using Webshop.Application.Contracts;
 using Webshop.Domain.Common;
 using Webshop.Order.Application.Contracts.Persistence;
 using Webshop.Order.Application.Features.Order.Dtos;
+using Webshop.Order.Application.Features.Order.Queries.GetOrder;
 
-namespace Webshop.Order.Application.Features.Order.Queries.GetOrders
+namespace Webshop.Order.Application.Features.Order.Queries.GetOrder
 {
     public class GetOrderQueryHandler : IQueryHandler<GetOrderQuery, OrderDto>
     {

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Webshop.Application.Contracts;
 using Webshop.Order.Application.Features.Order.Dtos;
 
-namespace Webshop.Order.Application.Features.Order.Queries.GetOrders
+namespace Webshop.Order.Application.Features.Order.Queries.GetOrder
 {
-    public class GetOrderQuery : IQuery<OrderDto>
+    public class GetOrderQuery : IQueryHandler<OrderDto>
     {
         public GetOrderQuery(int orderId)
         {
