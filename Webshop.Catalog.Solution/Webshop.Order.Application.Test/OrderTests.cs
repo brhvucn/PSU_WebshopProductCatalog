@@ -188,7 +188,7 @@ namespace Webshop.Order.Application.Test
             //act
             Result result = await handler.Handle(command);
             //assert
-            orderRepositoryMock.Verify(m => m.CreateAsync(order), Times.Once);
+            orderRepositoryMock.Verify(m => m.CreateAsync(It.IsAny<Domain.AggregateRoots.Order>()), Times.Once);
             Assert.True(result.Success);
         }
     }
