@@ -79,9 +79,10 @@ namespace Webshop.Order.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Returns a collection of all order objects from the database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Collection of OrderDto </returns>
+        [Route("/getall")]
         [HttpGet]
         public async Task<IActionResult> GetAllOrders()
         {
