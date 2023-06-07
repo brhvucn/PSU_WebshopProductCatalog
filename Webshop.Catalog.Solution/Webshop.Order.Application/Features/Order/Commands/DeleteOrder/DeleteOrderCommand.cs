@@ -3,9 +3,9 @@ using Webshop.Application.Contracts;
 
 namespace Webshop.Order.Application.Features.Order.Commands.DeleteOrder
 {
-    public class GetOrderCommand : ICommand
+    public class DeleteOrderCommand : ICommand
     {
-        public GetOrderCommand(int orderId)
+        public DeleteOrderCommand(int orderId)
         {
             //Smallest possible id is 1
             Ensure.That(orderId, nameof(orderId)).IsGt(0);

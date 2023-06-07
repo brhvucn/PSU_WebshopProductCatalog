@@ -48,7 +48,7 @@ namespace Webshop.Order.API.Test
         /// </summary>
         /// <returns>Collection of OrderDto objects</returns>
         [Fact]
-        public async Task GetAllOrder_ValidRequest_ReturnsIEnumerableOfOrderDto()
+        public async Task GetAllOrders_ValidRequest_ReturnsIEnumerableOfOrderDto()
         {
             // Arrange
             var client = new HttpClient();
@@ -141,28 +141,12 @@ namespace Webshop.Order.API.Test
             var client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:44363");
 
-            var expectedData = new
-            {
-                Id = 1,
-                Customer = "Pavol Halás",
-                DateOfIssue = DateTime.Parse("2023-05-20").ToString(),
-                DueDate = DateTime.Parse("2023-06-10").ToString(),
-                Discount = 10,
-                OrderedProducts = new[] {
-                    new { Product = new { ProductName = "Whispers of Eternity", SKU = "WOE-AB-01", Price = 1200, Currency = "EUR" }, Quantity = 1 },
-                    new { Product = new { ProductName = "The Labyrinth's Key", SKU = "TLK-BM-01", Price = 500, Currency = "EUR" }, Quantity = 1  }
-                }
-            };
-
             // Act
-            var response = await client.GetAsync(requestUrl);
+            var response = await client.DeleteAsync(requestUrl);
 
             // Assert
             response.EnsureSuccessStatusCode();
-            var order = await response.Content.ReadAsStringAsync();
-
-            Assert.NotNull(order); // Assert that the order is not null
-            Assert.Contains(expectedData.ToString(), order); // Assert that the order contains the expected data
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
     }
 }

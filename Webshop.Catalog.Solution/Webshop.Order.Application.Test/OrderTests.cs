@@ -8,6 +8,7 @@ using Webshop.Domain.Common;
 using Webshop.Order.Application.Contracts.Persistence;
 using Webshop.Order.Application.Features.Order.Commands.CreateOrder;
 using Webshop.Order.Application.Features.Order.Commands.DeleteOrder;
+using Webshop.Order.Application.Features.Order.Queries.GetOrder;
 using Xunit;
 
 namespace Webshop.Order.Application.Test
@@ -142,14 +143,14 @@ namespace Webshop.Order.Application.Test
         [Fact]
         public void DeleteOrderCommand_Invalid_ExpectFailure()
         {
-            Action a = () => new GetOrderCommand(0);
+            Action a = () => new DeleteOrderCommand(0);
             Assert.Throws<ArgumentOutOfRangeException>(a);
         }
 
         [Fact]
-        public void GetOrderCommand_Invalid_ExpectFailure()
+        public void GetOrderQuery_Invalid_ExpectFailure()
         {
-            Action a = () => new GetOrderCommand(0);
+            Action a = () => new GetOrderQuery(0);
             Assert.Throws<ArgumentOutOfRangeException>(a);
         }
 
