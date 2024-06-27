@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Webshop.Data.Persistence\Webshop.Data.Persistence.csproj" />
+    <ProjectReference Include="..\Webshop.Domain\Webshop.Domain.csproj" />
+    <ProjectReference Include="..\Webshop.Review.Application\Webshop.Review.Application.csproj" />
+    <ProjectReference Include="..\Webshop.Review.Domain\Webshop.Review.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

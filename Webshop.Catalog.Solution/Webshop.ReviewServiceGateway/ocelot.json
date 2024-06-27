@@ -1,0 +1,19 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7045
+        }
+      ],
+      "UpstreamPathTemplate": "/reviewservice/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl" :  "https://localhost:9100"
+  }
+}

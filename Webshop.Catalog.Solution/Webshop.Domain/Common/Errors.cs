@@ -11,7 +11,10 @@ namespace Webshop.Domain.Common
     {
         public static class General
         {
+            public static Error GeneralError(string message) => new Error("general.error", message);
+            public static Error ValueIsNull<T>() => new Error("value.null", $"The value of type ${typeof(T)} is null.");
             public static Error UnspecifiedError(string message) => new Error("unspecified.error", message);
+            public static Error FromException(Exception exception) => new Error("exception", exception.Message, 500);
             public static Error NotFound<T>(T id) where T : struct => new Error("entity.not.found", $"Could not find entity with ID {id}.", statusCode: 404);
             public static Error ValueIsRequired(string valueName) => new Error("value.is.required", $"Value '{valueName}' is required.");
             public static Error ValueTooSmall(string valueName, int minValue) => new Error("value.too.small", $"Value '{valueName}' should be at least {minValue}.");
@@ -23,5 +26,11 @@ namespace Webshop.Domain.Common
             public static Error ValueOutOfRange(string valueName, int minValue, int maxValue) =>
                 new Error("value.out.of.Range", $"Value '{valueName}' should be between {minValue} and {maxValue}.");
         }
+
+        //public static class Validation
+        //{
+        //    public static Error FromValidationRules(List<ValidationFailure> validationFailures) =>
+        //        new Error("validation.error", string.Join(", ", validationFailures.Select(v => v.ErrorMessage)));
+        //}
     }
 }
