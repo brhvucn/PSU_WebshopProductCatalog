@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,10 +28,10 @@ namespace Webshop.Domain.Common
                 new Error("value.out.of.Range", $"Value '{valueName}' should be between {minValue} and {maxValue}.");
         }
 
-        //public static class Validation
-        //{
-        //    public static Error FromValidationRules(List<ValidationFailure> validationFailures) =>
-        //        new Error("validation.error", string.Join(", ", validationFailures.Select(v => v.ErrorMessage)));
-        //}
+        public static class Validation
+        {
+            public static Error FromValidationRules(List<ValidationFailure> validationFailures) =>
+                new Error("validation.error", string.Join(", ", validationFailures.Select(v => v.ErrorMessage)));
+        }
     }
 }

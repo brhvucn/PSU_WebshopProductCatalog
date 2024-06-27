@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Ensure.That" Version="10.1.0" />
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
   </ItemGroup>
 
 </Project>
