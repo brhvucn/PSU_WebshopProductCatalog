@@ -14,6 +14,7 @@ namespace Webshop.Review.Application.Features.UpdateReview
         {
             Ensure.That(comment).IsNotNullOrEmpty();
             Ensure.That(rating).IsGt(0);
+            Ensure.That(rating).IsInRange(1, 5);
             Ensure.That(reviewId).IsGt(0);            
             Comment = comment;
             Rating = rating;
