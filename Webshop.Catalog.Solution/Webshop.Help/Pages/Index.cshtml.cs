@@ -65,12 +65,12 @@ namespace Webshop.Help.Pages
 	        [UserId] [int] NOT NULL,
 	        [Comment] [nvarchar](max) NOT NULL,
 	        [Rating] [int] NOT NULL,
-	        [Created] [datetime] NOT NULL)
-            GO
+	        [Created] [datetime] NOT NULL)";
 
-            ALTER TABLE [dbo].[Reviews] ADD  DEFAULT (getdate()) FOR [Created]
-            GO";
+            string alterSql = "ALTER TABLE [dbo].[Reviews] ADD  DEFAULT (getdate()) FOR [Created]";
+            
             ExecuteSQL(sql, this.connectionString);
+            ExecuteSQL(alterSql, this.connectionString);
         }
 
         private void CreateCategoryTable()
