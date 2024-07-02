@@ -53,7 +53,7 @@ jobs:
       run: ls -la
 
     - name: List project directory
-      run: ls -la Webshop.Catalog.Solution/Webshop.Review.Api
+      run: ls -la Webshop.Catalog.Solution/Webshop.Review.API
       
     - name: Restore dependencies
       run: dotnet restore Webshop.Catalog.Solution/Webshop.Review.Api.csproj
