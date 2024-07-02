@@ -1,5 +1,6 @@
 using FluentAssertions.Common;
 using MediatR;
+using Prometheus;
 using Serilog;
 using System.Reflection;
 using Webshop.Application;
@@ -19,8 +20,9 @@ builder.Services.AddSwaggerGen();
 //custom services
 builder.Services.AddScoped<DataContext, DataContext>();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-
 builder.Services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMediator>()));
+//add healthchecks
+builder.Services.AddHealthChecks();
 //use serilog
 var configuration = builder.Configuration;
 string seqUrl = configuration.GetValue<string>("Settings:SeqLogAddress");
@@ -52,7 +54,9 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+//enable prometheus metrics
+app.UseHttpMetrics();
 app.MapControllers();
+app.MapHealthChecks("/metrics");
 app.MapGet("/", () => "Microservice: Review API Service");
 app.Run();
