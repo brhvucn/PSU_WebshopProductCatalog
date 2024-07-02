@@ -7,21 +7,6 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build_solution:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v2
-      with:
-        dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore Webshop.Catalog.Solution/Webshop.Solution.sln
-    - name: Build
-      run: dotnet build Webshop.Catalog.Solution/Webshop.Solution.sln --no-restore
-    - name: Test
-      run: dotnet test Webshop.Catalog.Solution/Webshop.Solution.sln --no-build --verbosity normal
-  
   build_deploy_review_service:
     runs-on: ubuntu-latest
     steps:
@@ -56,16 +41,16 @@ jobs:
       run: ls -la Webshop.Catalog.Solution/Webshop.Review.API
       
     - name: Restore dependencies
-      run: dotnet restore Webshop.Catalog.Solution/Webshop.Review.API.csproj
+      run: dotnet restore Webshop.Catalog.Solution/Webshop.Review.API/Webshop.Review.API.csproj
       
     - name: Build
-      run: dotnet build Webshop.Catalog.Solution/Webshop.Review.API.csproj --no-restore
+      run: dotnet build Webshop.Catalog.Solution/Webshop.Review.API/Webshop.Review.API.csproj --no-restore
           
     - name: Test
-      run: dotnet test Webshop.Catalog.Solution/Webshop.Review.API.csproj --no-build --verbosity normal
+      run: dotnet test Webshop.Catalog.Solution/Webshop.Review.API/Webshop.Review.API.csproj --no-build --verbosity normal
 
     - name: Publish
-      run: dotnet publish Webshop.Catalog.Solution/Webshop.Review.API.csproj
+      run: dotnet publish Webshop.Catalog.Solution/Webshop.Review.API/Webshop.Review.API.csproj
 
     - name: Build Docker image
       working-directory: Webshop.Catalog.Solution
