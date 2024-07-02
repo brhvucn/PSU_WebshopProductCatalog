@@ -6,7 +6,7 @@ services:
     image: brhv/webshophelp
     restart: unless-stopped
     ports:
-      - 8000:80      
+      - 8000:8080     
     networks:
       - backtier
     environment:
@@ -38,7 +38,7 @@ services:
     image: brhv/webshoppaymentapi
     restart: unless-stopped
     ports:
-      - 8083:80
+      - 8083:8080
     networks:
       - backtier  
   catalogapi:
@@ -47,7 +47,7 @@ services:
     image: brhv/webshopcatalogapi
     restart: unless-stopped
     ports:
-        - 8084:80
+        - 8084:8080
     networks:
         - backtier
   customerapi:
@@ -56,7 +56,7 @@ services:
     image: brhv/webshopcustomerapi
     restart: unless-stopped
     ports:
-        - 8085:80
+        - 8085:8080
     networks:
         - backtier
   reviewapi:
@@ -65,7 +65,7 @@ services:
     image: brhv/webshopreviewservice
     restart: unless-stopped
     ports:
-      - 8086:80
+      - 8086:8080
     networks:
       - backtier
     environment:
