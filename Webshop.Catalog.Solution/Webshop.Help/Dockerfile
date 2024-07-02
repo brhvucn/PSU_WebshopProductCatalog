@@ -11,10 +11,10 @@ COPY ["Webshop.Help/Webshop.Help.csproj", "Webshop.Help/"]
 RUN dotnet restore "Webshop.Help/Webshop.Help.csproj"
 COPY . .
 WORKDIR "/src/Webshop.Help"
-RUN dotnet build "Webshop.Help.csproj" -c Release -o /app/build
+RUN dotnet build "Webshop.Help.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Webshop.Help.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Webshop.Help.csproj" -c Debug -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
