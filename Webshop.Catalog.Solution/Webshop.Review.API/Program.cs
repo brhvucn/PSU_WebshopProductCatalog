@@ -24,6 +24,8 @@ builder.Services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMedi
 //use serilog
 var configuration = builder.Configuration;
 string seqUrl = configuration.GetValue<string>("Settings:SeqLogAddress");
+Console.WriteLine("Starting up");
+Console.WriteLine($"SeqUrl: {seqUrl}");
 // Serilog configuration
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
