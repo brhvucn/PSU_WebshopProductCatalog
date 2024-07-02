@@ -18,6 +18,7 @@ namespace Webshop.Review.Domain
             UserId = userId;
             Comment = comment;
             Rating = rating;
+            Created = System.DateTime.Now;
         }
         public int ProductId { get; private set; }
         public int UserId { get; private set; }

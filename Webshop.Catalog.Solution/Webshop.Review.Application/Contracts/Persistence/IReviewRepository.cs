@@ -17,6 +17,6 @@ namespace Webshop.Review.Application.Contracts.Persistence
         Task<Result<ProductReviewDTO>> GetProductAggregatedReviews(int productid);
         Task<Result<List<Domain.Review>>> GetByUser(int userId);
         Task<Result<List<Domain.Review>>> GetByProduct(int productId);
-        Task<Result<List<ProductReviewDTO>>> GetAggregatedByProduct(int productId);
+        Task<Result<ProductReviewDTO>> GetAggregatedByProduct(int productId);
     }
 }

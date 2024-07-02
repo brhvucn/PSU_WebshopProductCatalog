@@ -8,7 +8,7 @@ using Webshop.Application.Contracts;
 
 namespace Webshop.Review.Application.Features.GetAggregatedByProduct
 {
-    public class GetAggregatedByProductQuery : IQuery<List<ProductReviewDTO>>
+    public class GetAggregatedByProductQuery : IQuery<ProductReviewDTO>
     {
         public GetAggregatedByProductQuery(int productId)
         {            

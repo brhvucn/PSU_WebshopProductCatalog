@@ -10,7 +10,7 @@ using Webshop.Review.Application.Contracts.Persistence;
 
 namespace Webshop.Review.Application.Features.GetAggregatedByProduct
 {
-    public class GetAggregatedByProductQueryHandler : IQueryHandler<GetAggregatedByProductQuery, List<ProductReviewDTO>>
+    public class GetAggregatedByProductQueryHandler : IQueryHandler<GetAggregatedByProductQuery, ProductReviewDTO>
     {
         private readonly IReviewRepository _reviewRepository;
         private readonly ILogger<GetAggregatedByProductQueryHandler> _logger;        
@@ -20,7 +20,7 @@ namespace Webshop.Review.Application.Features.GetAggregatedByProduct
             this._reviewRepository = reviewRepository;
         }
 
-        public async Task<Result<List<ProductReviewDTO>>> Handle(GetAggregatedByProductQuery query, CancellationToken cancellationToken = default)
+        public async Task<Result<ProductReviewDTO>> Handle(GetAggregatedByProductQuery query, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Webshop.Review.Application.Features.GetAggregatedByProduct
             catch (Exception ex)
             {
                 this._logger.LogCritical(ex, ex.Message);
-                return Result.Fail<List<ProductReviewDTO>>(Errors.General.FromException(ex));
+                return Result.Fail<ProductReviewDTO>(Errors.General.FromException(ex));
             }
         }
     }

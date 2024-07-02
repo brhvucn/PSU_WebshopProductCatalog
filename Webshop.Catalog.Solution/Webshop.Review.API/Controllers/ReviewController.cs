@@ -5,7 +5,12 @@ using Webshop.Domain.Common;
 using Webshop.Review.API.Models.Requests;
 using Webshop.Review.API.Models.Validators;
 using Webshop.Review.Application.Features.CreateReview;
+using Webshop.Review.Application.Features.DeleteReview;
+using Webshop.Review.Application.Features.GetAggregatedByProduct;
+using Webshop.Review.Application.Features.GetProductReviews;
 using Webshop.Review.Application.Features.GetReview;
+using Webshop.Review.Application.Features.GetUserReviews;
+using Webshop.Review.Application.Features.UpdateReview;
 
 namespace Webshop.Review.API.Controllers
 {
@@ -30,9 +35,57 @@ namespace Webshop.Review.API.Controllers
             {
                 GetReviewQuery query = new GetReviewQuery(id);
                 var result = await this.dispatcher.Dispatch(query);
-                return Ok();
+                return FromResult(result);
             }
             catch(Exception ex)
+            {
+                return Error(Errors.General.FromException(ex));
+            }
+        }
+
+        [HttpGet]
+        [Route("products/{id}")]
+        public async Task<IActionResult> GetReviewsForProduct(int id)
+        {
+            try
+            {
+                GetProductReviewsQuery query = new GetProductReviewsQuery(id);
+                var result = await this.dispatcher.Dispatch(query);
+                return FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return Error(Errors.General.FromException(ex));
+            }
+        }
+
+        [HttpGet]
+        [Route("productsaggregated/{id}")]
+        public async Task<IActionResult> GetReviewsForProductAggregated(int id)
+        {
+            try
+            {
+                GetAggregatedByProductQuery query = new GetAggregatedByProductQuery(id);
+                var result = await this.dispatcher.Dispatch(query);
+                return FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return Error(Errors.General.FromException(ex));
+            }
+        }
+
+        [HttpGet]
+        [Route("users/{id}")]
+        public async Task<IActionResult> GetReviewsForUser(int id)
+        {
+            try
+            {
+                GetUserReviewsQuery query = new GetUserReviewsQuery(id);
+                var result = await this.dispatcher.Dispatch(query);
+                return FromResult(result);
+            }
+            catch (Exception ex)
             {
                 return Error(Errors.General.FromException(ex));
             }
@@ -56,6 +109,52 @@ namespace Webshop.Review.API.Controllers
                 return FromResult(commandResult);
             }
             catch(Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateReview([FromBody] UpdateReviewRequest request)
+        {
+            try
+            {
+                UpdateReviewRequestValidator validator = new UpdateReviewRequestValidator();
+                var validationResult = validator.Validate(request);
+                if (!validationResult.IsValid)
+                {
+                    return Error("");
+                    //return Error(Errors.Validation.FromValidationRules(validationResult.Errors));
+                }
+                //create and dispatch the command
+                UpdateReviewCommand command = new UpdateReviewCommand(request.ReviewId, request.Comment, request.Rating);
+                var commandResult = await this.dispatcher.Dispatch(command);
+                return FromResult(commandResult);
+            }
+            catch (Exception ex)
+            {
+                return Error(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteReview([FromBody] DeleteReviewRequest request)
+        {
+            try
+            {
+                DeleteReviewValidator validator = new DeleteReviewValidator();
+                var validationResult = validator.Validate(request);
+                if (!validationResult.IsValid)
+                {
+                    //return Error("");
+                    return Error(Errors.Validation.FromValidationRules(validationResult.Errors));
+                }
+                //create and dispatch the command
+                DeleteReviewCommand command = new DeleteReviewCommand(request.ReviewId);
+                var commandResult = await this.dispatcher.Dispatch(command);
+                return FromResult(commandResult);
+            }
+            catch (Exception ex)
             {
                 return Error(ex.Message);
             }

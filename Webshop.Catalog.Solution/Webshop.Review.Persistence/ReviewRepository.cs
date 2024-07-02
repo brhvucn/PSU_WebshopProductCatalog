@@ -27,7 +27,8 @@ namespace Webshop.Review.Persistence
             }
             catch (Exception ex)
             {
-                this._logger.LogCritical(ex, ex.Message);                
+                this._logger.LogCritical(ex, ex.Message);
+                throw new Exception("Error in inserting review into database", ex);
             }
         }
 
@@ -47,9 +48,38 @@ namespace Webshop.Review.Persistence
             }
         }
 
-        public Task<Result<List<ProductReviewDTO>>> GetAggregatedByProduct(int productId)
+        public async Task<Result<ProductReviewDTO>> GetAggregatedByProduct(int productId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string sql = $"SELECT " +
+                    $" r.ProductId AS ProductId," +
+                    $" COUNT(r.Id) AS [AmountOfReviews]," +
+                    $" AVG(CONVERT(float, r.Rating)) AS [AverageRating] " +
+                    $" FROM" +
+                    $" [PSUMicroservices_ReviewService].[dbo].[Reviews] r" +
+                    $" WHERE" +
+                    $" r.ProductId = @id  " +
+                    $" GROUP BY" +
+                    $" r.ProductId;";
+                using (var connection = dataContext.CreateConnection())
+                {
+                    var result = await connection.QuerySingleOrDefaultAsync<ProductReviewDTO>(sql, new { id = productId });
+                    if (result != null)
+                    {
+                        return Result.Ok<ProductReviewDTO>(result);
+                    }
+                    else
+                    {
+                        return Result.Fail<ProductReviewDTO>(Errors.General.NotFound<int>(productId));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogCritical(ex, ex.Message);
+                return Result.Fail<ProductReviewDTO>(Errors.General.FromException(ex));
+            }
         }
 
         public Task<IEnumerable<Domain.Review>> GetAll()
@@ -107,9 +137,29 @@ namespace Webshop.Review.Persistence
             }
         }
 
-        public Task<Result<List<Domain.Review>>> GetByUser(int userId)
+        public async Task<Result<List<Domain.Review>>> GetByUser(int userId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string sql = $"select * from {this.TableName} where userid = @id";
+                using (var connection = dataContext.CreateConnection())
+                {
+                    var result = await connection.QueryAsync<Domain.Review>(sql, new { id = userId });
+                    if (result != null)
+                    {
+                        return Result.Ok<List<Domain.Review>>(result.ToList());
+                    }
+                    else
+                    {
+                        return Result.Fail<List<Domain.Review>>(Errors.General.NotFound<int>(userId));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogCritical(ex, ex.Message);
+                return Result.Fail<List<Domain.Review>>(Errors.General.FromException(ex));
+            }
         }
 
         public async Task<Result<ProductReviewDTO>> GetProductAggregatedReviews(int productid)
