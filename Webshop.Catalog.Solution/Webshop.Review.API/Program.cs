@@ -54,5 +54,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapGet("/", () => "Microservice: Review API Service");
 app.Run();
