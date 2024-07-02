@@ -7,19 +7,119 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
-
+  build_test_solution:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 8.0.x
+        
+    - name: Cache NuGet packages
+      uses: actions/cache@v3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj', '**/*.sln') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
     - name: Restore dependencies
       run: dotnet restore Webshop.Catalog.Solution/Webshop.Solution.sln
+      
     - name: Build
       run: dotnet build Webshop.Catalog.Solution/Webshop.Solution.sln --no-restore
+      
     - name: Test
       run: dotnet test Webshop.Catalog.Solution/Webshop.Solution.sln --no-build --verbosity normal
+      
+  build_deploy_review_service:
+    needs: build_test_solution
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: List root directory
+      run: ls -la
+
+    - name: List project directory
+      run: ls -la Webshop.Catalog.Solution/Webshop.Review.API
+      
+    - name: Restore dependencies
+      run: dotnet restore Webshop.Catalog.Solution/Webshop.Review.API/Webshop.Review.API.csproj
+      
+    - name: Build
+      run: dotnet build Webshop.Catalog.Solution/Webshop.Review.API/Webshop.Review.API.csproj --no-restore
+          
+    - name: Test
+      run: dotnet test Webshop.Catalog.Solution/Webshop.Review.API/Webshop.Review.API.csproj --no-build --verbosity normal
+
+    - name: Publish
+      run: dotnet publish Webshop.Catalog.Solution/Webshop.Review.API/Webshop.Review.API.csproj
+
+    - name: Build Docker image
+      working-directory: Webshop.Catalog.Solution
+      run: docker build -f Webshop.Review.API/Dockerfile --force-rm -t brhv/webshopreviewservice:latest --build-arg "BUILD_CONFIGURATION=Debug" .
+
+    - name: Push Docker image
+      run: docker push brhv/webshopreviewservice:latest
+
+  build_deploy_payment_service:
+    needs: build_test_solution
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+        
+    - name: List root directory
+      run: ls -la
+
+    - name: List project directory
+      run: ls -la Webshop.Catalog.Solution/Webshop.Payment.Api
+      
+    - name: Restore dependencies
+      run: dotnet restore Webshop.Catalog.Solution/Webshop.Payment.Api/Webshop.Payment.Api.csproj
+      
+    - name: Build
+      run: dotnet build Webshop.Catalog.Solution/Webshop.Payment.Api/Webshop.Payment.Api.csproj --no-restore
+          
+    - name: Test
+      run: dotnet test Webshop.Catalog.Solution/Webshop.Payment.Api/Webshop.Payment.Api.csproj --no-build --verbosity normal
+
+    - name: Publish
+      run: dotnet publish Webshop.Catalog.Solution/Webshop.Payment.Api/Webshop.Payment.Api.csproj
+
+    - name: Build Docker image
+      working-directory: Webshop.Catalog.Solution
+      run: docker build -f Webshop.Payment.Api/Dockerfile --force-rm -t brhv/webshoppaymentapi:latest --build-arg "BUILD_CONFIGURATION=Debug" .
+
+    - name: Push Docker image
+      run: docker push brhv/webshoppaymentapi:latest
