@@ -71,7 +71,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Review.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Review.Application.Test", "Webshop.Review.Application.Test\Webshop.Review.Application.Test.csproj", "{253BCBC9-88DD-426E-846E-2F98C1927075}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Review.API.Tests", "Webshop.Review.API.Tests\Webshop.Review.API.Tests.csproj", "{8AF718F2-1E03-43FB-8ED7-A7FDB4E6A699}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webshop.Review.API.Tests", "Webshop.Review.API.Tests\Webshop.Review.API.Tests.csproj", "{8AF718F2-1E03-43FB-8ED7-A7FDB4E6A699}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoadBalancing", "LoadBalancing", "{EFD9D33C-341D-411F-A29B-888288B949F8}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.loadbalancing.yml = docker-compose.loadbalancing.yml
+		guide.loadbalancing.md = guide.loadbalancing.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -198,6 +204,7 @@ Global
 		{A8F0A5BC-421B-4164-9DED-E17D768143AC} = {774CCD7D-ED3B-4D75-8A7F-CEFC745765DB}
 		{253BCBC9-88DD-426E-846E-2F98C1927075} = {BF604B02-EA9B-4EE8-A7F0-EDD07B387082}
 		{8AF718F2-1E03-43FB-8ED7-A7FDB4E6A699} = {BF604B02-EA9B-4EE8-A7F0-EDD07B387082}
+		{EFD9D33C-341D-411F-A29B-888288B949F8} = {75AFF816-1819-450B-8D19-E4CBD80530B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {822AAF83-FC8D-42BE-9726-63314F24EB10}
