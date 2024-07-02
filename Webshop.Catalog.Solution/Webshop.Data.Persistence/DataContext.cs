@@ -29,7 +29,7 @@ namespace Webshop.Data.Persistence
             else
             {
                 _connectionString = _configuration.GetConnectionString("DefaultConnection");
-                this._logger.LogInformation($"Using connectionstring: \"{_connectionString}\" - from settings file");
+                this._logger.LogWarning($"Using connectionstring: \"{_connectionString}\" - from settings file");
             }            
         }
         public IDbConnection CreateConnection()
