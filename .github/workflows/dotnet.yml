@@ -69,7 +69,7 @@ jobs:
 
     - name: Build Docker image
       working-directory: Webshop.Catalog.Solution
-      run: docker build -f Webshop.Review.API/Dockerfile --force-rm -t brhv/psu_micro_reviewservice:latest --build-arg "BUILD_CONFIGURATION=Debug" .
+      run: docker build -f Webshop.Review.API/Dockerfile --force-rm -t brhv/webshopreviewservice:latest --build-arg "BUILD_CONFIGURATION=Debug" .
 
     - name: Push Docker image
-      run: docker push brhv/psu_micro_reviewservice:latest
+      run: docker push brhv/webshopreviewservice:latest
