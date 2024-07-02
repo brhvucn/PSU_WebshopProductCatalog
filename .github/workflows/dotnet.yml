@@ -7,7 +7,22 @@ on:
     branches: [ "master" ]
 
 jobs:
+  build_test_solution:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore Webshop.Catalog.Solution/Webshop.Solution.sln
+    - name: Build
+      run: dotnet build Webshop.Catalog.Solution/Webshop.Solution.sln --no-restore
+    - name: Test
+      run: dotnet test Webshop.Catalog.Solution/Webshop.Solution.sln --no-build --verbosity normal
   build_deploy_review_service:
+    needs: build_test_solution
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
