@@ -56,16 +56,16 @@ jobs:
       run: ls -la Webshop.Catalog.Solution/Webshop.Review.API
       
     - name: Restore dependencies
-      run: dotnet restore Webshop.Catalog.Solution/Webshop.Review.Api.csproj
+      run: dotnet restore Webshop.Catalog.Solution/Webshop.Review.API.csproj
       
     - name: Build
-      run: dotnet build Webshop.Catalog.Solution/Webshop.Review.Api.csproj --no-restore
+      run: dotnet build Webshop.Catalog.Solution/Webshop.Review.API.csproj --no-restore
           
     - name: Test
-      run: dotnet test Webshop.Catalog.Solution/Webshop.Review.Api.csproj --no-build --verbosity normal
+      run: dotnet test Webshop.Catalog.Solution/Webshop.Review.API.csproj --no-build --verbosity normal
 
     - name: Publish
-      run: dotnet publish Webshop.Catalog.Solution/Webshop.Review.Api.csproj
+      run: dotnet publish Webshop.Catalog.Solution/Webshop.Review.API.csproj
 
     - name: Build Docker image
       working-directory: Webshop.Catalog.Solution
