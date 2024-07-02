@@ -69,7 +69,7 @@ services:
     networks:
       - backtier
     environment:
-      - connectionstring=Server=webshopdatabase;Database=PSUReviews;Trusted_Connection=True
+      - connectionstring=Server=webshopdatabase;Database=PSUReviews;User Id=sa;Password=PSU@password
   sqlexpress:
   #the sql server
     container_name: webshopdatabase
