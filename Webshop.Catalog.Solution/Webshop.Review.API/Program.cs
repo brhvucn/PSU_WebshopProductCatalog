@@ -57,6 +57,7 @@ app.UseAuthorization();
 //enable prometheus metrics
 app.UseHttpMetrics();
 app.MapControllers();
-app.MapHealthChecks("/metrics");
+app.MapHealthChecks("/health");
+app.MapMetrics();
 app.MapGet("/", () => "Microservice: Review API Service");
 app.Run();

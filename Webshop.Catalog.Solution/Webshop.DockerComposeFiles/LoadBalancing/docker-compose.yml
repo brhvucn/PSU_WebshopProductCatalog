@@ -1,0 +1,26 @@
+﻿version: '3.8'
+
+services:
+  reviewservice1:
+    image: brhv/webshopreviewservice:latest
+    container_name: lb_reviewservice_1
+    ports:
+      - "9090:8080"
+    environment:
+      INSTANCE_ID: Service1
+
+    networks:
+      - micronetwork 
+    
+  reviewservice2:
+    image: brhv/webshopreviewservice:latest
+    container_name: lb_reviewservice_2
+    ports:
+      - "9091:8080"
+    environment:
+      INSTANCE_ID: Service2
+    networks:
+      - micronetwork 
+
+networks:
+  micronetwork : {}
