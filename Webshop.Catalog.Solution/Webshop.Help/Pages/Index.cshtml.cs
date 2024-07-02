@@ -35,11 +35,14 @@ namespace Webshop.Help.Pages
             //create the database
             this.connectionString = this.mainconnectionString + ";database=master";
             CreateDatabase();
+            CreateReviewDatabase();//creating psureviews database
             this.connectionString = this.mainconnectionString + ";database=psuwebshop"; //make sure they are created in the right database
             CreateCategoryTable();
             CreateCustomerTable();
             CreateProductTable();
             CreateProductCategoryTable();
+            this.connectionString = this.mainconnectionString + ";database=PSUReviews"; //make sure they are created in the right database
+            CreateReviewsTable();
             TempData["errors"] = Errors;
             return Redirect("/?seed=1");
         }
@@ -47,6 +50,27 @@ namespace Webshop.Help.Pages
         private void CreateDatabase()
         {            
             ExecuteSQL("CREATE DATABASE psuwebshop", this.connectionString);           
+        }
+
+        private void CreateReviewDatabase()
+        {
+            ExecuteSQL("CREATE DATABASE PSUReviews", this.connectionString);
+        }
+
+        private void CreateReviewsTable()
+        {
+            string sql = @"CREATE TABLE [dbo].[Reviews](
+	        [Id] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	        [ProductId] [int] NOT NULL,
+	        [UserId] [int] NOT NULL,
+	        [Comment] [nvarchar](max) NOT NULL,
+	        [Rating] [int] NOT NULL,
+	        [Created] [datetime] NOT NULL)
+            GO
+
+            ALTER TABLE [dbo].[Reviews] ADD  DEFAULT (getdate()) FOR [Created]
+            GO";
+            ExecuteSQL(sql, this.connectionString);
         }
 
         private void CreateCategoryTable()

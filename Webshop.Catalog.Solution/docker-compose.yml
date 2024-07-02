@@ -40,7 +40,7 @@ services:
     ports:
       - 8083:80
     networks:
-      - backtier
+      - backtier  
   catalogapi:
   # the catalog API
     container_name: webshop.catalog
@@ -59,13 +59,24 @@ services:
         - 8085:80
     networks:
         - backtier
+  reviewapi:
+   # the review API
+    container_name: webshop.review
+    image: brhv/webshopreviewservice
+    restart: unless-stopped
+    ports:
+      - 8086:80
+    networks:
+      - backtier
+    environment:
+      - connectionstring=Server=webshopdatabase;Database=PSUReviews;Trusted_Connection=True
   sqlexpress:
   #the sql server
     container_name: webshopdatabase
     image: mcr.microsoft.com/mssql/server:latest
     restart: unless-stopped
     ports:
-        - 1433:1433
+        - 1403:1433 # SQL Server port, connect SSMS with this: localhost, 1403
     environment:
         - ACCEPT_EULA=Y
         - SA_PASSWORD=PSU@password
