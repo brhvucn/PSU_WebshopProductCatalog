@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Prometheus;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,8 @@ namespace Webshop.Catalog.Api
 
             services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMediator>()));
             services.AddCatalogApplicationServices();
+            //add healthchecks
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +80,10 @@ namespace Webshop.Catalog.Api
             });
             //add serilog
             loggerFactory.AddSerilog();
+            //enable prometheus metrics
+            app.UseHttpMetrics();
+            app.UseHealthChecks("/health");
+            app.UseMetricServer();
         }
     }
 }

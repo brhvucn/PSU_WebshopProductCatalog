@@ -28,6 +28,13 @@ namespace Webshop.Review.API.Controllers
         }
 
         [HttpGet]
+        [Route("/api/info")]
+        public IActionResult Info()
+        {
+            return Ok($"Service: ReviewService");
+        }
+
+        [HttpGet]
         [Route("{id}")]
         public async Task<IActionResult> GetReviews(int id)
         {

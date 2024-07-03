@@ -10,7 +10,7 @@ namespace Webshop.Review.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class BaseController : ControllerBase
-    {
+    {        
         protected new ActionResult Ok()
         {
             return base.Ok(Envelope.Ok());

@@ -5,4 +5,16 @@ scrape_configs:
   - job_name: 'reviewservice'
     metrics_path: /metrics
     static_configs:
-      - targets: ['webshop.review:8080', 'webshop.payment:8080']  # Use the container's internal port
+      - targets: ['webshop.review:8080']  # Use the container's internal port
+  - job_name: 'paymentservice'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['webshop.payment:8080']  # Use the container's internal port
+  - job_name: 'catalogservice'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['webshop.catalog:8080']  # Use the container's internal port
+  - job_name: 'customerservice'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['webshop.customer:8080']  # Use the container's internal port

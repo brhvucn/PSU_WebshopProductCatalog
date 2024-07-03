@@ -96,6 +96,9 @@ services:
       - "--config.file=/etc/prometheus/prometheus.yml"
     depends_on:
       - reviewapi
+      - customerapi
+      - catalogapi
+      - paymentapi
     networks:
       - backtier
 networks:
