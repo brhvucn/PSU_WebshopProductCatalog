@@ -1,0 +1,26 @@
+﻿version: '3.8'
+
+services:
+  reviewservice1:
+    image: brhv/webshopreviewservice:latest
+    container_name: ra_reviewservice
+    ports:
+      - "9090:8080"
+    environment:
+      INSTANCE_ID: ReviewService_1
+
+    networks:
+      - micronetwork 
+    
+  reviewservice2:
+    image: brhv/webshoppaymentapi:latest
+    container_name: ra_paymentservice
+    ports:
+      - "9091:8080"
+    environment:
+      INSTANCE_ID: PaymentService_1
+    networks:
+      - micronetwork 
+
+networks:
+  micronetwork : {}
