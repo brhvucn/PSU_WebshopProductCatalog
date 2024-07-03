@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Prometheus;
 using PSU_PaymentGateway.Repository;
 using PSU_PaymentGateway.Services;
 using Serilog;
@@ -45,6 +46,8 @@ namespace PSU_PaymentGateway
             //add custom services
             services.AddSingleton<IMemoryRepository, MemoryRepository>();
             services.AddSingleton<IThrottleService, ThrottleService>();
+            //add healthchecks
+            services.AddHealthChecks();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +73,11 @@ namespace PSU_PaymentGateway
             });
             // Add Serilog to the logging pipeline
             loggerFactory.AddSerilog();
+
+            //enable prometheus metrics
+            app.UseHttpMetrics();            
+            app.UseHealthChecks("/health");
+            app.UseMetricServer();
         }
     }
 }
