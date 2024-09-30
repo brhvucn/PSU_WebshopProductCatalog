@@ -6,11 +6,11 @@
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 9090
+          "Port": 8086
         },
         {
           "Host": "localhost",
-          "Port": 9091
+          "Port": 8087
         }
       ],
       "UpstreamPathTemplate": "/reviewservice/{everything}",
