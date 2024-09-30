@@ -82,9 +82,29 @@ namespace Webshop.Review.Persistence
             }
         }
 
-        public Task<IEnumerable<Domain.Review>> GetAll()
+        public async Task<IEnumerable<Domain.Review>> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                string sql = $"select * from {this.TableName}";
+                using (var connection = dataContext.CreateConnection())
+                {
+                    var result = await connection.QueryAsync<Domain.Review>(sql);
+                    if (result != null)
+                    {
+                        return result;
+                    }
+                    else
+                    {
+                        return new List<Domain.Review>();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogCritical(ex, ex.Message);
+                return new List<Domain.Review>();
+            }
         }
 
         public async Task<Domain.Review> GetById(int id)

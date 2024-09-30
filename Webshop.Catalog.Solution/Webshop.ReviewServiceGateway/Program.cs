@@ -5,8 +5,8 @@ using Prometheus;
 var builder = WebApplication.CreateBuilder(args);
 //add Ocelot Config
 //builder.Configuration.AddJsonFile("ocelot.json");
-//builder.Configuration.AddJsonFile("ocelotloadbalancer.json");
-builder.Configuration.AddJsonFile("ocelotrequestaggregator.json");
+builder.Configuration.AddJsonFile("ocelotloadbalancer.json");
+//builder.Configuration.AddJsonFile("ocelotrequestaggregator.json");
 //add Ocelot
 builder.Services.AddOcelot(builder.Configuration);
 

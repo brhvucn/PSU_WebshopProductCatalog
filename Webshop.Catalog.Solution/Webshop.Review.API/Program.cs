@@ -6,6 +6,7 @@ using System.Reflection;
 using Webshop.Application;
 using Webshop.Application.Contracts;
 using Webshop.Data.Persistence;
+using Webshop.Review.API.Utilities;
 using Webshop.Review.Application;
 using Webshop.Review.Persistence;
 
@@ -21,6 +22,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<DataContext, DataContext>();
 builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IDispatcher>(sp => new Dispatcher(sp.GetService<IMediator>()));
+//add the instance singleton
+builder.Services.AddSingleton<InstanceHelper>();
 //add healthchecks
 builder.Services.AddHealthChecks();
 //use serilog
