@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 //add Ocelot Config
 //builder.Configuration.AddJsonFile("ocelot.json");
 builder.Configuration.AddJsonFile("ocelotloadbalancer.json");
+//env vars override the json, e.g. downstream hosts when running in docker
+builder.Configuration.AddEnvironmentVariables();
 //builder.Configuration.AddJsonFile("ocelotrequestaggregator.json");
 //add Ocelot
 builder.Services.AddOcelot(builder.Configuration);

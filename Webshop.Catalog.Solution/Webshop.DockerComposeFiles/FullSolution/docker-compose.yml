@@ -90,6 +90,12 @@ services:
       - 8089:8080
     networks:
       - backtier
+    environment:
+      # inside docker the review services are reached by container name, not localhost
+      - Routes__0__DownstreamHostAndPorts__0__Host=webshop.review
+      - Routes__0__DownstreamHostAndPorts__0__Port=8080
+      - Routes__0__DownstreamHostAndPorts__1__Host=webshop.review2
+      - Routes__0__DownstreamHostAndPorts__1__Port=8080
   sqlexpress:
   #the sql server
     container_name: webshopdatabase
