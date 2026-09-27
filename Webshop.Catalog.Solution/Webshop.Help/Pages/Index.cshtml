@@ -34,6 +34,12 @@
     <form method="post">
         <button class="button is-success">Create Database</button>
     </form>
+    <form method="post" asp-page-handler="Reset" style="display:inline;margin-left:10px">
+        <button class="button is-warning">Reset Database</button>
+    </form>
+    <form method="post" asp-page-handler="Seed" style="display:inline;margin-left:10px">
+        <button class="button is-info">Seed Demo Data</button>
+    </form>
         @if (hasErrors)
         {            
             <div style="padding:20px;background-color:#DEDEDE;font-family:consolas">

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Hosting;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace Webshop.Help.Pages
 {
@@ -11,12 +13,14 @@ namespace Webshop.Help.Pages
         private string mainconnectionString;
         private string server = "localhost";
         private List<string> Errors = new List<string>();
+        private readonly string _contentRoot;
 
-        public IndexModel(ILogger<IndexModel> logger, IConfiguration config)
+        public IndexModel(ILogger<IndexModel> logger, IConfiguration config, IWebHostEnvironment env)
         {
             _logger = logger;
             this.connectionString = config.GetConnectionString("DefaultConnection");
             this.mainconnectionString = this.connectionString;
+            _contentRoot = env.ContentRootPath;
             string newServer = Environment.GetEnvironmentVariable("SERVER");
             if (!string.IsNullOrEmpty(newServer))
             {
@@ -43,6 +47,60 @@ namespace Webshop.Help.Pages
             CreateProductCategoryTable();
             this.connectionString = this.mainconnectionString + ";database=PSUReviews"; //make sure they are created in the right database
             CreateReviewsTable();
+            TempData["errors"] = Errors;
+            return Redirect("/?seed=1");
+        }
+
+        public IActionResult OnPostReset()
+        {
+            Errors.Clear();
+            this.connectionString = this.mainconnectionString + ";database=master";
+            // drop databases if exist
+            ExecuteSQL("DROP DATABASE IF EXISTS psuwebshop", this.connectionString);
+            ExecuteSQL("DROP DATABASE IF EXISTS PSUReviews", this.connectionString);
+            // recreate and seed basic schema
+            CreateDatabase();
+            CreateReviewDatabase();
+            this.connectionString = this.mainconnectionString + ";database=psuwebshop";
+            CreateCategoryTable();
+            CreateCustomerTable();
+            CreateProductTable();
+            CreateProductCategoryTable();
+            this.connectionString = this.mainconnectionString + ";database=PSUReviews";
+            CreateReviewsTable();
+            TempData["errors"] = Errors;
+            return Redirect("/?reset=1");
+        }
+
+        public IActionResult OnPostSeed()
+        {
+            Errors.Clear();
+            // ensure target database exists
+            this.connectionString = this.mainconnectionString + ";database=psuwebshop";
+            // create table if not exists
+            CreateCustomerTable();
+            // run Customers.sql then Seed Demo Customers.sql
+            try
+            {
+                string customersSqlPath = Path.Combine(_contentRoot, "Customers.sql");
+                if (System.IO.File.Exists(customersSqlPath))
+                {
+                    string sql = System.IO.File.ReadAllText(customersSqlPath);
+                    ExecuteSQL(sql, this.connectionString);
+                }
+
+                string seedPath = Path.Combine(_contentRoot, "Seed Demo Customers.sql");
+                if (System.IO.File.Exists(seedPath))
+                {
+                    string seedSql = System.IO.File.ReadAllText(seedPath);
+                    ExecuteSQL(seedSql, this.connectionString);
+                }
+            }
+            catch (Exception ex)
+            {
+                Errors.Add(ex.Message);
+            }
+
             TempData["errors"] = Errors;
             return Redirect("/?seed=1");
         }
