@@ -24,7 +24,8 @@ services:
       - backtier
     environment:
       - ACCEPT_EULA=Y
-      - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
+    volumes:
+      - seq-data:/data
   smtp4dev:
     # development time email server and client, easy to test sending emails
     container_name: smtp4dev
@@ -111,6 +112,9 @@ services:
 networks:
   # The presence of these objects is sufficient to define them
   backtier: {}
+
+volumes:
+  seq-data:
 
 
 
