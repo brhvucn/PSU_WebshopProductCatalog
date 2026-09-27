@@ -10,11 +10,15 @@ WORKDIR /src
 COPY ["Webshop.Help/Webshop.Help.csproj", "Webshop.Help/"]
 RUN dotnet restore "Webshop.Help/Webshop.Help.csproj"
 COPY . .
+# Ensure SQL seed files are available to MSBuild during build/publish
+COPY ["Customers.sql", "Webshop.Help/"]
+COPY ["Seed Demo Customers.sql", "Webshop.Help/"]
 WORKDIR "/src/Webshop.Help"
 RUN dotnet build "Webshop.Help.csproj" -c Debug -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Webshop.Help.csproj" -c Debug -o /app/publish /p:UseAppHost=false
+
 
 FROM base AS final
 WORKDIR /app
