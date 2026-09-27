@@ -55,9 +55,29 @@ namespace Webshop.Help.Pages
         {
             Errors.Clear();
             this.connectionString = this.mainconnectionString + ";database=master";
+            
+            // Kill all active connections to psuwebshop database
+            string killConnectionsSql = @"
+                DECLARE @kill varchar(8000) = '';
+                SELECT @kill = @kill + 'KILL ' + CONVERT(varchar(5), session_id) + ';'
+                FROM sys.dm_exec_sessions
+                WHERE database_id = DB_ID('psuwebshop');
+                EXEC(@kill);";
+            ExecuteSQL(killConnectionsSql, this.connectionString);
+            
+            // Kill all active connections to PSUReviews database
+            string killConnectionsReviewsSql = @"
+                DECLARE @kill varchar(8000) = '';
+                SELECT @kill = @kill + 'KILL ' + CONVERT(varchar(5), session_id) + ';'
+                FROM sys.dm_exec_sessions
+                WHERE database_id = DB_ID('PSUReviews');
+                EXEC(@kill);";
+            ExecuteSQL(killConnectionsReviewsSql, this.connectionString);
+            
             // drop databases if exist
             ExecuteSQL("DROP DATABASE IF EXISTS psuwebshop", this.connectionString);
             ExecuteSQL("DROP DATABASE IF EXISTS PSUReviews", this.connectionString);
+            
             // recreate and seed basic schema
             CreateDatabase();
             CreateReviewDatabase();
@@ -107,33 +127,35 @@ namespace Webshop.Help.Pages
 
         private void CreateDatabase()
         {            
-            ExecuteSQL("CREATE DATABASE psuwebshop", this.connectionString);           
+            ExecuteSQL("IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'psuwebshop') CREATE DATABASE psuwebshop", this.connectionString);           
         }
 
         private void CreateReviewDatabase()
         {
-            ExecuteSQL("CREATE DATABASE PSUReviews", this.connectionString);
+            ExecuteSQL("IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = 'PSUReviews') CREATE DATABASE PSUReviews", this.connectionString);
         }
 
         private void CreateReviewsTable()
         {
-            string sql = @"CREATE TABLE [dbo].[Reviews](
-	        [Id] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	        [ProductId] [int] NOT NULL,
-	        [UserId] [int] NOT NULL,
-	        [Comment] [nvarchar](max) NOT NULL,
-	        [Rating] [int] NOT NULL,
-	        [Created] [datetime] NOT NULL)";
-
-            string alterSql = "ALTER TABLE [dbo].[Reviews] ADD  DEFAULT (getdate()) FOR [Created]";
+            string sql = @"IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Reviews]') AND type in (N'U'))
+            BEGIN
+                CREATE TABLE [dbo].[Reviews](
+	            [Id] [int] IDENTITY(1,1) NOT NULL PRIMARY KEY,
+	            [ProductId] [int] NOT NULL,
+	            [UserId] [int] NOT NULL,
+	            [Comment] [nvarchar](max) NOT NULL,
+	            [Rating] [int] NOT NULL,
+	            [Created] [datetime] NOT NULL DEFAULT (getdate()))
+            END";
             
             ExecuteSQL(sql, this.connectionString);
-            ExecuteSQL(alterSql, this.connectionString);
         }
 
         private void CreateCategoryTable()
         {
-            string sql = "CREATE TABLE Category(" +
+            string sql = "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Category]') AND type in (N'U')) " +
+            "BEGIN " +
+            "CREATE TABLE Category(" +
             "[Id] [int] IDENTITY(1,1) NOT NULL," +
             "[Name] [nvarchar](150) NOT NULL," +
             "[ParentId] [int] NOT NULL," +
@@ -142,13 +164,16 @@ namespace Webshop.Help.Pages
             "(" +
             "[Id] ASC" +
             ")" +
-            ")";
+            ") " +
+            "END";
             ExecuteSQL(sql, this.connectionString);
         }
 
         private void CreateCustomerTable()
         {
-            string sql = "CREATE TABLE Customer(" +
+            string sql = "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Customer]') AND type in (N'U')) " +
+            "BEGIN " +
+            "CREATE TABLE Customer(" +
             "[Id] [int] IDENTITY(1,1) NOT NULL," +
             "[Name] [nvarchar](150) NOT NULL," +
             "[Address] [nvarchar](200) NOT NULL," +
@@ -162,13 +187,16 @@ namespace Webshop.Help.Pages
             "(" +
             "[Id] ASC" +
             ")" +
-            ")";
+            ") " +
+            "END";
             ExecuteSQL(sql, this.connectionString);
         }
 
         private void CreateProductTable()
         {
-            string sql = "CREATE TABLE Product(" +
+            string sql = "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Product]') AND type in (N'U')) " +
+            "BEGIN " +
+            "CREATE TABLE Product(" +
             "[Id] [int] IDENTITY(1,1) NOT NULL," +
             "[Name] [nvarchar](150) NOT NULL," +
             "[SKU] [nvarchar](50) NOT NULL," +
@@ -181,13 +209,16 @@ namespace Webshop.Help.Pages
             "(" +
             "[Id] ASC" +
             ")" +
-            ")";
+            ") " +
+            "END";
             ExecuteSQL(sql, this.connectionString);
         }
 
         private void CreateProductCategoryTable()
         {
-            string sql = "CREATE TABLE ProductCategory(" +
+            string sql = "IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ProductCategory]') AND type in (N'U')) " +
+            "BEGIN " +
+            "CREATE TABLE ProductCategory(" +
             "[ProductId] [int] NOT NULL," +
             "[CategoryId] [int] NOT NULL," +
             "CONSTRAINT [PK_ProductCategory] PRIMARY KEY CLUSTERED " +
@@ -195,7 +226,8 @@ namespace Webshop.Help.Pages
             "[ProductId] ASC," +
             "[CategoryId] ASC" +
             ")" +
-            ")";
+            ") " +
+            "END";
             ExecuteSQL(sql, this.connectionString);
         }
 
