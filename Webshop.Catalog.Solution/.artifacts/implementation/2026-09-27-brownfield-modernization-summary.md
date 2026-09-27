@@ -104,11 +104,15 @@ app.Run();
 - ✅ Quick start guide added for students
 - ✅ Docker Compose instructions documented
 
+**Docker Compose Fix:**
+- ✅ Added `ACCEPT_EULA=Y` to Seq container (required for startup)
+- ✅ Removed unnecessary environment variables from smtp4dev
+
 ---
 
 ## Files Changed
 
-### Modified Files (8)
+### Modified Files (9)
 1. `Webshop.Payment.Api/Webshop.Payment.Api.csproj` - Package updates
 2. `Webshop.Payment.Api/Program.cs` - Modernized hosting
 3. `Webshop.Customer.Api/Webshop.Customer.Api.csproj` - Package updates
@@ -117,6 +121,7 @@ app.Run();
 6. `README.md` - Updated documentation
 7. `.opencode/state/PROJECT-CONFIG.md` - Project configuration
 8. `.opencode/context/techstack/overview.md` - Tech stack documentation
+9. `docker-compose.yml` - Added ACCEPT_EULA=Y to Seq, cleaned up environment vars
 
 ### Deleted Files (3)
 1. `Webshop.Catalog.Api/Startup.cs`
