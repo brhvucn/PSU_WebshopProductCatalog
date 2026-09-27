@@ -1,8 +1,11 @@
 version: "3.9"
 services:
   help:
-    # SeQ is a framework for logging of exceptions etc
+    # Help service for database setup and navigation
     container_name: webshophelp
+    build:
+      context: .
+      dockerfile: Webshop.Help/Dockerfile
     image: brhv/webshophelp
     restart: unless-stopped
     ports:
