@@ -70,6 +70,17 @@ services:
       - backtier
     environment:
       - connectionstring=Server=webshopdatabase;Database=PSUReviews;User Id=sa;Password=PSU@password
+  reviewapi-2:
+   # the review API - 2 for load balancing
+    container_name: webshop.review2
+    image: brhv/webshopreviewservice
+    restart: unless-stopped
+    ports:
+      - 8087:8080
+    networks:
+      - backtier
+    environment:
+      - connectionstring=Server=webshopdatabase;Database=PSUReviews;User Id=sa;Password=PSU@password
   reviewgateway:
    # the review APIgateway
     container_name: webshop.reviewgateway
@@ -79,10 +90,17 @@ services:
       - 8089:8080
     networks:
       - backtier
+    environment:
+      # inside docker the review services are reached by container name, not localhost
+      - Routes__0__DownstreamHostAndPorts__0__Host=webshop.review
+      - Routes__0__DownstreamHostAndPorts__0__Port=8080
+      - Routes__0__DownstreamHostAndPorts__1__Host=webshop.review2
+      - Routes__0__DownstreamHostAndPorts__1__Port=8080
   sqlexpress:
   #the sql server
     container_name: webshopdatabase
-    image: mcr.microsoft.com/mssql/server:latest
+    image: mcr.microsoft.com/mssql/server:2022-latest # 2025 (latest) crashes on some CPUs
+    user: root # needed to write to the ./data bind mount
     restart: unless-stopped
     ports:
         - 1403:1433 # SQL Server port, connect SSMS with this: localhost, 1403
@@ -104,7 +122,8 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
     depends_on:
-      - reviewapi
+      - reviewapi-1
+      - reviewapi-2
       - customerapi
       - catalogapi
       - paymentapi
