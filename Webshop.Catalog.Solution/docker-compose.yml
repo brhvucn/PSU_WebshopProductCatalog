@@ -23,6 +23,7 @@ services:
     networks:
       - backtier
     environment:
+      - ACCEPT_EULA=Y
       - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
   smtp4dev:
     # development time email server and client, easy to test sending emails
@@ -33,8 +34,6 @@ services:
       - 26:25
     networks:
       - backtier
-    environment:
-      - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
   paymentapi:
    # the payment API
     container_name: webshop.payment
