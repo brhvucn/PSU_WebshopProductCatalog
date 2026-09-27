@@ -1,0 +1,28 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'catalog-api'
+    static_configs:
+      - targets: ['webshop.catalog:8080']
+        labels:
+          service: 'catalog'
+
+  - job_name: 'customer-api'
+    static_configs:
+      - targets: ['webshop.customer:8080']
+        labels:
+          service: 'customer'
+
+  - job_name: 'payment-api'
+    static_configs:
+      - targets: ['webshop.payment:8080']
+        labels:
+          service: 'payment'
+
+  - job_name: 'review-api'
+    static_configs:
+      - targets: ['webshop.review:8080']
+        labels:
+          service: 'review'
