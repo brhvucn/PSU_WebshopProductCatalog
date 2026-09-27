@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   help:
     # SeQ is a framework for logging of exceptions etc
@@ -23,6 +22,7 @@ services:
       - backtier
     environment:
       - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_NOAUTHENTICATION=True
   smtp4dev:
     # development time email server and client, easy to test sending emails
     container_name: smtp4dev
@@ -59,7 +59,7 @@ services:
         - 8085:8080
     networks:
         - backtier
-  reviewapi-1:
+  reviewapi:
    # the review API
     container_name: webshop.review
     image: brhv/webshopreviewservice

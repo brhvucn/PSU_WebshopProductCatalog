@@ -1,0 +1,24 @@
+name: .NET Build
+
+on:
+  push:
+    branches: [ "master", "upgrade/net10" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET 10 SDK
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '10.0.x'
+    - name: Restore
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore -c Release
+    - name: Test
+      run: dotnet test --no-build -c Release

@@ -1,0 +1,90 @@
+{
+  "_search": {
+    "_comment": "Paths scanned by discover, tree, organize and keywords commands. Only add paths that contain searchable information - not instructions, templates or agent runtime files.",
+    "paths": [
+      ".opencode/context",
+      ".opencode/context/.harvest"
+    ]
+  },
+
+  "_harvest": {
+    "_comment": "All harvest output lands in .opencode/context/.harvest/<category>/. Staged here for human review before being promoted into the curated context folders.",
+    "architecture": ".opencode/context/.harvest/architecture",
+    "patterns":     ".opencode/context/.harvest/patterns",
+    "packages":     ".opencode/context/.harvest/packages",
+    "examples":     ".opencode/context/.harvest/examples",
+    "frontend":     ".opencode/context/.harvest/frontend",
+    "techstack":    ".opencode/context/.harvest/techstack"
+  },
+
+  "services": {
+    "description": "Business services: service patterns, business logic, orchestration",
+    "type": "keyword",
+    "keywords": ["service", "business", "orchestration", "request-flow"],
+    "searchDirs": [".opencode/context"],
+    "maxFiles": 10
+  },
+  "database": {
+    "description": "Database: Dapper, PostgreSQL, persistence, repositories",
+    "type": "keyword",
+    "keywords": ["database", "dapper", "persistence", "repository", "postgres", "npgsql", "sql"],
+    "searchDirs": [".opencode/context"],
+    "maxFiles": 8
+  },
+  "api": {
+    "description": "API layer: controllers, endpoints, DTOs, error handling",
+    "type": "keyword",
+    "keywords": ["api", "controller", "endpoint", "error-flow", "validation"],
+    "searchDirs": [".opencode/context"],
+    "maxFiles": 10
+  },
+  "frontend": {
+    "description": "Frontend: Vue 3, Pinia, Bulma, components + examples",
+    "type": "keyword",
+    "keywords": ["vue", "frontend", "component", "service", "pinia", "bulma", "header", "sidebar", "loading", "title"],
+    "searchDirs": [".opencode/context/frontend", ".opencode/context/examples"],
+    "maxFiles": 10
+  },
+  "patterns": {
+    "description": "All code patterns",
+    "type": "directory",
+    "paths": [".opencode/context/patterns"]
+  },
+  "packages": {
+    "description": "All NuGet packages: overview, public and private",
+    "type": "directory",
+    "paths": [".opencode/context/packages"]
+  },
+  "packages-required": {
+    "description": "Required/recommended packages",
+    "type": "keyword",
+    "keywords": ["required", "recommended", "dapper", "npgsql"],
+    "searchDirs": [".opencode/context/packages"],
+    "maxFiles": 4
+  },
+  "packages-public": {
+    "description": "Public nuget.org packages",
+    "type": "directory",
+    "paths": [".opencode/context/packages/public"]
+  },
+  "architecture": {
+    "description": "All architecture documents",
+    "type": "directory",
+    "paths": [".opencode/context/architecture"]
+  },
+  "examples": {
+    "description": "Code examples: frontend components, services",
+    "type": "directory",
+    "paths": [".opencode/context/examples"]
+  },
+  "minimal": {
+    "description": "Minimal startup context (techstack overview)",
+    "type": "file",
+    "paths": [".opencode/context/techstack/overview.md"]
+  },
+  "minimal-api": {
+    "description": "Minimal API patterns: endpoints, validation, DI, error handling, testing",
+    "type": "directory",
+    "paths": [".opencode/context/patterns/minimal-api"]
+  }
+}

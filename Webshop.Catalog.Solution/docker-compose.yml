@@ -1,8 +1,11 @@
 version: "3.9"
 services:
   help:
-    # SeQ is a framework for logging of exceptions etc
+    # Help service for database setup and navigation
     container_name: webshophelp
+    build:
+      context: .
+      dockerfile: Webshop.Help/Dockerfile
     image: brhv/webshophelp
     restart: unless-stopped
     ports:
@@ -11,6 +14,7 @@ services:
       - backtier
     environment:
       - SERVER=webshopdatabase
+      - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
   seq:
     # SeQ is a framework for logging of exceptions etc
     container_name: SeQ
@@ -23,6 +27,9 @@ services:
       - backtier
     environment:
       - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_NOAUTHENTICATION=true
+    volumes:
+      - seq-data:/data
   smtp4dev:
     # development time email server and client, easy to test sending emails
     container_name: smtp4dev
@@ -41,6 +48,8 @@ services:
       - 8083:8080
     networks:
       - backtier  
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
   catalogapi:
   # the catalog API
     container_name: webshop.catalog
@@ -98,6 +107,11 @@ services:
         - ./data:/var/opt/mssql/data
     networks:
         - backtier
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $${SA_PASSWORD} -Q \"SELECT 1\""]
+      interval: 10s
+      timeout: 5s
+      retries: 12
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -114,6 +128,9 @@ services:
 networks:
   # The presence of these objects is sufficient to define them
   backtier: {}
+
+volumes:
+  seq-data:
 
 
 
