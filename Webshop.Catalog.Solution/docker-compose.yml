@@ -11,6 +11,7 @@ services:
       - backtier
     environment:
       - SERVER=webshopdatabase
+      - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
   seq:
     # SeQ is a framework for logging of exceptions etc
     container_name: SeQ
@@ -22,7 +23,7 @@ services:
     networks:
       - backtier
     environment:
-      - ACCEPT_EULA=Y
+      - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
   smtp4dev:
     # development time email server and client, easy to test sending emails
     container_name: smtp4dev
@@ -32,6 +33,8 @@ services:
       - 26:25
     networks:
       - backtier
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
   paymentapi:
    # the payment API
     container_name: webshop.payment
@@ -41,6 +44,8 @@ services:
       - 8083:8080
     networks:
       - backtier  
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
   catalogapi:
   # the catalog API
     container_name: webshop.catalog
@@ -70,10 +75,11 @@ services:
       - backtier
     environment:
       - connectionstring=Server=webshopdatabase;Database=PSUReviews;User Id=sa;Password=PSU@password
+      - ConnectionStrings__DefaultConnection=Server=webshopdatabase,1433;Database=psuwebshop;User Id=sa;Password=PSU@password
   sqlexpress:
   #the sql server
     container_name: webshopdatabase
-    image: mcr.microsoft.com/mssql/server:latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
     restart: unless-stopped
     ports:
         - 1403:1433 # SQL Server port, connect SSMS with this: localhost, 1403
@@ -85,6 +91,11 @@ services:
         - ./data:/var/opt/mssql/data
     networks:
         - backtier
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P $${SA_PASSWORD} -Q \"SELECT 1\""]
+      interval: 10s
+      timeout: 5s
+      retries: 12
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus

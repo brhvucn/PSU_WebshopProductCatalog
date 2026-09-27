@@ -18,9 +18,15 @@ namespace Webshop.Data.Persistence
         {
             _configuration = configuration;
             _logger = logger;
-            //first check the environment variable: connectionstring
-            //prefer the environment variable over the appsettings.json
-            string envConnectionString = Environment.GetEnvironmentVariable("connectionstring");
+            // first check common environment variables (set by Docker Compose)
+            // prefer environment variables over appsettings.json for containerized runs
+            string envConnectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection");
+            if (string.IsNullOrEmpty(envConnectionString))
+            {
+                // fallback to legacy lowercase name used elsewhere in the solution
+                envConnectionString = Environment.GetEnvironmentVariable("connectionstring");
+            }
+
             if (!string.IsNullOrEmpty(envConnectionString))
             {
                 _connectionString = envConnectionString;
@@ -30,7 +36,7 @@ namespace Webshop.Data.Persistence
             {
                 _connectionString = _configuration.GetConnectionString("DefaultConnection");
                 this._logger.LogWarning($"Using connectionstring: \"{_connectionString}\" - from settings file");
-            }            
+            }
         }
         public IDbConnection CreateConnection()
             => new System.Data.SqlClient.SqlConnection(_connectionString);
