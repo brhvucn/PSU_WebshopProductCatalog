@@ -24,6 +24,7 @@ services:
       - backtier
     environment:
       - ACCEPT_EULA=Y
+      - SEQ_FIRSTRUN_NOAUTHENTICATION=true
     volumes:
       - seq-data:/data
   smtp4dev:
