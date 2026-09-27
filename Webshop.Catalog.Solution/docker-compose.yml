@@ -70,10 +70,23 @@ services:
       - backtier
     environment:
       - connectionstring=Server=webshopdatabase;Database=PSUReviews;User Id=sa;Password=PSU@password
+  reviewapi-2:
+   # second review API instance, the gateway load balances across 8086 and 8087
+    container_name: webshop.review2
+    image: brhv/webshopreviewservice
+    restart: unless-stopped
+    ports:
+      - 8087:8080
+    networks:
+      - backtier
+    environment:
+      - INSTANCE_ID=Service2
+      - connectionstring=Server=webshopdatabase;Database=PSUReviews;User Id=sa;Password=PSU@password
   sqlexpress:
   #the sql server
     container_name: webshopdatabase
-    image: mcr.microsoft.com/mssql/server:latest
+    image: mcr.microsoft.com/mssql/server:2022-latest # 2025 (latest) crashes on some CPUs
+    user: root # needed to write to the ./data bind mount
     restart: unless-stopped
     ports:
         - 1403:1433 # SQL Server port, connect SSMS with this: localhost, 1403
@@ -89,7 +102,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     ports:
-      - "8087:9090"
+      - "8088:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
     command:
